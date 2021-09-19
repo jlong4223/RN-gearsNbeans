@@ -7,14 +7,22 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "link:aliases": "link-module-alias"
   },
   "dependencies": {
     "link-module-alias": "^1.2.0",
+    "lodash": "^4.17.21",
     "native-base": "^3.1.0",
     "react": "17.0.2",
     "react-native": "0.65.1",
-    "react-native-navigation": "^7.21.0"
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-navigation": "^7.21.0",
+    "react-native-navigation-hooks": "^6.3.0",
+    "react-native-safe-area-context": "^3.3.2",
+    "react-native-svg": "^12.1.1",
+    "styled-components": "^5.3.1",
+    "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -29,5 +37,18 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "_moduleAliases": {
+    "~root": "./",
+    "~src": "./src",
+    "~assets": "./src/assets",
+    "~app": "./src/components/app",
+    "~components": "./src/components",
+    "~sharedComponents": "./src/components/shared",
+    "~screens": "./src/components/screens",
+    "~services": "./src/services",
+    "~redux": "./src/redux",
+    "~actions": "./src/redux/actions",
+    "~reducers": "./src/redux/reducers"
   }
 }

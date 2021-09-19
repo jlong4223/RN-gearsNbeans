@@ -1,0 +1,10 @@
+const SCREEN_NAMES = {
+  HOME: 'Home',
+};
+
+const NAVIGATION_STACKS = {
+  MAIN: 'MAIN',
+  NAVIGATION_STACK: 'MAIN',
+};
+
+export { SCREEN_NAMES, NAVIGATION_STACKS };
