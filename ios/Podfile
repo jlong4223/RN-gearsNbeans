@@ -12,6 +12,7 @@ target 'RNGearsBeans' do
     :hermes_enabled => false
   )
 
+
   target 'RNGearsBeansTests' do
     inherit! :complete
     # Pods for testing
