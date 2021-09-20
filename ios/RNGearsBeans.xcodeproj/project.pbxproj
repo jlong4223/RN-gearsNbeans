@@ -134,6 +134,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				4EB2B1BC2A2407D966D08B0A /* Pods */,
+				EBD0E0314F4B41FCA1FD1302 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +148,14 @@
 				00E356EE1AD99517003FC87E /* RNGearsBeansTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		EBD0E0314F4B41FCA1FD1302 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
