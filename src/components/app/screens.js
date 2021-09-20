@@ -1,5 +1,5 @@
 import { SCREEN_NAMES } from './appConstants';
-import HomeScreen from '../screens/HomeScreen';
+import HomeScreen from '../screens/Home/HomeScreen';
 
 export const screens = {
   homeScreen: {

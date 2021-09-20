@@ -1,5 +1,7 @@
 import { Navigation } from 'react-native-navigation';
 import { SCREEN_NAMES, NAVIGATION_STACKS } from './appConstants';
+import truncate from 'lodash/truncate';
+import merge from 'lodash/merge';
 
 export function setBaseRoot() {
   Navigation.setRoot({
@@ -49,4 +51,20 @@ function pushScreen({ componentName, options = {}, passProps = {} }) {
       passProps,
     },
   });
+}
+
+export function setScreenTitle({ title, isVisible, mergeOptions }) {
+  const truncatedTitle = truncate(title, {
+    length: 25,
+  });
+
+  const newOptions = merge({
+    topBar: {
+      visible: isVisible,
+      title: {
+        text: truncatedTitle,
+      },
+    },
+  });
+  mergeOptions(newOptions);
 }
