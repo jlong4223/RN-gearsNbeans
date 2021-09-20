@@ -1,32 +1,34 @@
 import React from 'react';
-import { HStack, Menu, useTheme, Pressable, Text } from 'native-base';
+import { HStack, Menu, useTheme, Pressable } from 'native-base';
 import { scale, moderateScale } from 'react-native-size-matters';
-
-// TODO update header to use icon
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function InboxHeader() {
   const theme = useTheme();
   const styles = getStyles(theme);
+  const menuItems = getMenuItems();
 
   return (
     <HStack style={styles.header}>
       <Menu
-        placement="left"
+        placement="bottom"
         // TODO check this on android
-        crossOffset={58}
-        offset={-55}
+        offset={-40}
         trigger={triggerProps => {
           return (
             <Pressable
               accessibilityLabel="Profile Options Menu"
               {...triggerProps}>
-              <Text> Profile </Text>
+              <Icon name="gears" size={30} />
             </Pressable>
           );
         }}>
-        <Menu.Item>View Cart</Menu.Item>
-        <Menu.Item>Login</Menu.Item>
-        <Menu.Item>Signup</Menu.Item>
+        {menuItems.map(item => (
+          <Menu.Item key={item.key} style={styles.menuItem}>
+            {item.name}
+            <Icon name={item.icon} size={25} />
+          </Menu.Item>
+        ))}
       </Menu>
     </HStack>
   );
@@ -46,5 +48,30 @@ function getStyles(theme) {
       paddingLeft: scale(5),
       backgroundColor: theme.colors.background,
     },
+    menuItem: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
   };
+}
+
+function getMenuItems() {
+  return [
+    {
+      name: 'Profile',
+      icon: 'user-circle',
+      key: 'profile',
+    },
+    {
+      name: 'Cart',
+      icon: 'cart-plus',
+      key: 'cart',
+    },
+    {
+      name: 'Info',
+      icon: 'info',
+      key: 'info',
+    },
+  ];
 }
