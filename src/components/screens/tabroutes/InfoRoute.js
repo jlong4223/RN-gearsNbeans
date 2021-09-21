@@ -10,7 +10,7 @@ export default function InfoRoute() {
   return (
     <ScrollView>
       <VStack style={styles.container}>
-        <GBLogo />
+        <GBLogo imgSize={'2xl'} />
         <Text style={styles.text}>
           The one stop shop for all your hipster needs. Pedal up, get your pour,
           and have one of our trusted mechanics look over your bike.
