@@ -4,7 +4,7 @@ import { useWindowDimensions } from 'react-native';
 import { TabView } from 'react-native-tab-view';
 import { setScreenTitle } from '../../app/navigation';
 import { allRoutes, renderScreenScene } from '../tabroutes/allTabRoutes';
-import { renderTabBar } from './homeHelpers';
+import { HomeTabBar } from './HomeTabBar';
 import HomeHeader from './HomeHeader';
 
 export default function HomeScreen() {
@@ -41,7 +41,8 @@ export default function HomeScreen() {
         renderScene={renderScreenScene}
         onIndexChange={setIndex}
         initialLayout={{ width: layout.width }}
-        renderTabBar={renderTabBar}
+        renderTabBar={HomeTabBar}
+        tabBarPosition="bottom"
       />
     </>
   );
