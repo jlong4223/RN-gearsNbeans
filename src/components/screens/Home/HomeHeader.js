@@ -46,6 +46,7 @@ function getStyles(theme) {
       ...commonHeaderStyles,
       justifyContent: 'flex-end',
       paddingLeft: scale(5),
+      borderBottomWidth: 0.2,
     },
     menuItem: {
       display: 'flex',
