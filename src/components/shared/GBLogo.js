@@ -8,7 +8,7 @@ export default function TBLogo({ imgSize }) {
 
   return (
     <Image
-      alt="Threadbolt-Logo"
+      alt="GearsNBeans-Logo"
       source={useColorModeValue(LightLogo, DarkLogo)}
       size={imgSize || 'lg'}
     />
