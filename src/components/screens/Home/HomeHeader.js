@@ -19,14 +19,14 @@ export default function InboxHeader() {
             <Pressable
               accessibilityLabel="Profile Options Menu"
               {...triggerProps}>
-              <Icon name="gears" size={30} />
+              <Icon name="gears" size={30} style={styles.menuIcon} />
             </Pressable>
           );
         }}>
         {menuItems.map(item => (
           <Menu.Item key={item.key} style={styles.menuItem}>
             {item.name}
-            <Icon name={item.icon} size={25} />
+            <Icon name={item.icon} size={25} style={styles.menuIcon} />
           </Menu.Item>
         ))}
       </Menu>
@@ -46,12 +46,14 @@ function getStyles(theme) {
       ...commonHeaderStyles,
       justifyContent: 'flex-end',
       paddingLeft: scale(5),
-      backgroundColor: theme.colors.background,
     },
     menuItem: {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+    },
+    menuIcon: {
+      color: theme.colors.altBackground,
     },
   };
 }

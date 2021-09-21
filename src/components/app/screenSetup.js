@@ -1,6 +1,6 @@
 import React from 'react';
+import AppProviders from './Providers/AppProviders';
 import { Navigation } from 'react-native-navigation';
-import { NativeBaseProvider } from 'native-base';
 
 import { withNavigationProvider } from 'react-native-navigation-hooks';
 import forEach from 'lodash/forEach';
@@ -38,9 +38,9 @@ function registerScreen(name, component) {
 function wrapInProviders(Component) {
   const WrappedComponent = props => {
     return (
-      <NativeBaseProvider>
+      <AppProviders>
         <Component safeArea {...props} />
-      </NativeBaseProvider>
+      </AppProviders>
     );
   };
   return WrappedComponent;
