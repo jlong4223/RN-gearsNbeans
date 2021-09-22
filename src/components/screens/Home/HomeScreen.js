@@ -19,10 +19,10 @@ function HomeScreen({ replaceMe }) {
 
   useEffect(() => {
     setRoutes(
-      allRoutes.map(route => ({
-        key: route.id,
-        title: route.name,
-        icon: route.icon,
+      allRoutes.map(({ id, name, icon }) => ({
+        key: id,
+        title: name,
+        icon: icon,
       })),
     );
   }, []);
