@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigation } from 'react-native-navigation-hooks';
 import { useWindowDimensions } from 'react-native';
+import { connect } from 'react-redux';
 import { TabView } from 'react-native-tab-view';
 import { setScreenTitle } from '../../app/navigation';
 import { allRoutes, renderScreenScene } from '../tabroutes/allTabRoutes';
 import { HomeTabBar } from './HomeTabBar';
 import HomeHeader from './HomeHeader';
 
-export default function HomeScreen() {
+function HomeScreen({ replaceMe }) {
+  console.log('redux state: ', replaceMe);
   const layout = useWindowDimensions();
   const { mergeOptions } = useNavigation();
 
@@ -47,3 +49,11 @@ export default function HomeScreen() {
     </>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    replaceMe: state.replaceMe,
+  };
+};
+
+export default connect(mapStateToProps, null)(HomeScreen);
