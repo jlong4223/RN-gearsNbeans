@@ -68,3 +68,48 @@ export function setScreenTitle({ title, isVisible, mergeOptions }) {
   });
   mergeOptions(newOptions);
 }
+
+export function goToCart({ options } = {}) {
+  const combinedOptions = merge(options, {
+    topBar: {
+      title: {
+        text: 'Cart',
+      },
+    },
+  });
+
+  pushScreen({
+    componentName: SCREEN_NAMES.CART_SCREEN,
+    options: combinedOptions,
+  });
+}
+
+export function goToProfile({ options } = {}) {
+  const combinedOptions = merge(options, {
+    topBar: {
+      title: {
+        text: 'Profile',
+      },
+    },
+  });
+
+  pushScreen({
+    componentName: SCREEN_NAMES.PROFILE_SCREEN,
+    options: combinedOptions,
+  });
+}
+
+export function goToInfo({ options } = {}) {
+  const combinedOptions = merge(options, {
+    topBar: {
+      title: {
+        text: 'Company Info',
+      },
+    },
+  });
+
+  pushScreen({
+    componentName: SCREEN_NAMES.INFO_SCREEN,
+    options: combinedOptions,
+  });
+}
