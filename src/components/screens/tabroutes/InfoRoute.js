@@ -23,6 +23,11 @@ export default function InfoRoute() {
           and have one of our trusted mechanics look over your bike.
         </Text>
         <Map coordinates={businessCoordinates} />
+        <Text style={styles.text}>
+          We directly source and roast elite coffees from around the world. We
+          are dedicated to bringing you closer to the journey and excitement of
+          coffee by experiencing it and drinking it together.
+        </Text>
       </VStack>
     </ScrollView>
   );
