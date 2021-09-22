@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, View } from 'native-base';
+import { ScrollView } from 'react-native';
+import InfoHours from './InfoHours';
+import InfoAddress from './InfoAddress';
 
 function InfoScreen() {
   return (
-    <View>
-      <Text>InfoScreen</Text>
-    </View>
+    <ScrollView>
+      <InfoHours />
+      <InfoAddress />
+      {/* TODO add social icons */}
+    </ScrollView>
   );
 }
 
