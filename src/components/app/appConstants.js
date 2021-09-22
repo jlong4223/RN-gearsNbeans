@@ -1,5 +1,8 @@
 const SCREEN_NAMES = {
   HOME: 'Home',
+  CART_SCREEN: 'CartScreen',
+  PROFILE_SCREEN: 'ProfileScreen',
+  INFO_SCREEN: 'InfoScreen',
 };
 
 const NAVIGATION_STACKS = {

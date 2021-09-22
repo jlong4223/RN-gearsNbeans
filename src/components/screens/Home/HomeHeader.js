@@ -1,6 +1,7 @@
 import React from 'react';
 import { HStack, Menu, useTheme, Pressable } from 'native-base';
 import { scale, moderateScale } from 'react-native-size-matters';
+import { goToCart, goToProfile, goToInfo } from '../../app/navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function InboxHeader() {
@@ -24,10 +25,16 @@ export default function InboxHeader() {
           );
         }}>
         {menuItems.map(item => (
-          <Menu.Item key={item.key} style={styles.menuItem}>
-            {item.name}
-            <Icon name={item.icon} size={25} style={styles.menuIcon} />
-          </Menu.Item>
+          <Pressable key={item.key}>
+            <Menu.Item
+              style={styles.menuItem}
+              onPress={() => {
+                item.navigate({});
+              }}>
+              {item.name}
+              <Icon name={item.icon} size={25} style={styles.menuIcon} />
+            </Menu.Item>
+          </Pressable>
         ))}
       </Menu>
     </HStack>
@@ -65,16 +72,19 @@ function getMenuItems() {
       name: 'Profile',
       icon: 'user-circle',
       key: 'profile',
+      navigate: goToProfile,
     },
     {
       name: 'Cart',
       icon: 'cart-plus',
       key: 'cart',
+      navigate: goToCart,
     },
     {
       name: 'Info',
       icon: 'info',
       key: 'info',
+      navigate: goToInfo,
     },
   ];
 }
