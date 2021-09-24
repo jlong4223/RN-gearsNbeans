@@ -9,8 +9,7 @@ import { HomeTabBar } from './HomeTabBar';
 import PropTypes from 'prop-types';
 import HomeHeader from '~screens/Home/HomeHeader';
 
-function HomeScreen({ replaceMe }) {
-  console.log('redux state: ', replaceMe);
+function HomeScreen() {
   const layout = useWindowDimensions();
   const { mergeOptions } = useNavigation();
 
@@ -56,9 +55,7 @@ HomeScreen.propTypes = {
 };
 
 const mapStateToProps = state => {
-  return {
-    replaceMe: state.replaceMe,
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, null)(HomeScreen);
