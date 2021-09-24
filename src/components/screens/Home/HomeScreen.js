@@ -50,9 +50,7 @@ function HomeScreen() {
   );
 }
 
-HomeScreen.propTypes = {
-  replaceMe: PropTypes.any,
-};
+HomeScreen.propTypes = {};
 
 const mapStateToProps = state => {
   return {};
