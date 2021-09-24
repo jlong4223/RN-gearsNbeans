@@ -8,13 +8,11 @@
     "pods": "cd ios && pod install",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint .",
-    "link:aliases": "link-module-alias"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@react-native-community/viewpager": "^5.0.11",
     "axios": "^0.21.4",
-    "link-module-alias": "^1.2.0",
     "lodash": "^4.17.21",
     "native-base": "^3.1.0",
     "prop-types": "^15.7.2",
