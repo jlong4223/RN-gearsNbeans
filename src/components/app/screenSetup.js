@@ -12,7 +12,6 @@ export { screens };
 export function registerScreens() {
   // Register Screens
   forEach(screens, screen => {
-    console.log('screeens, ', screen);
     registerScreen(screen.name, withNavigationProvider(screen.component));
   });
 
