@@ -1,12 +1,11 @@
 import React from 'react';
-import AppProviders from './Providers/AppProviders';
+import AppProviders from '~app/Providers/AppProviders';
 import { Navigation } from 'react-native-navigation';
-
 import { withNavigationProvider } from 'react-native-navigation-hooks';
 import forEach from 'lodash/forEach';
 import { gestureHandlerRootHOC } from 'react-native-gesture-handler';
-import { setBaseRoot } from './navigation';
-import { screens } from './screens';
+import { setBaseRoot } from '~app/navigation';
+import { screens } from '~app/screens';
 
 export { screens };
 

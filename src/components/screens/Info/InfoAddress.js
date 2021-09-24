@@ -1,6 +1,6 @@
 import React from 'react';
 import { VStack, Text, Heading, Pressable } from 'native-base';
-import { getCompanyAddress, openMaps } from './helpers';
+import { getCompanyAddress, openMaps } from '~screens/Info/helpers';
 
 export default function InfoAddress(props) {
   const styles = getStyles();

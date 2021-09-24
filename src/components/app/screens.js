@@ -1,8 +1,8 @@
-import { SCREEN_NAMES } from './appConstants';
-import HomeScreen from '../screens/Home/HomeScreen';
-import CartScreen from '../screens/Cart/CartScreen';
-import ProfileScreen from '../screens/Profile/ProfileScreen';
-import InfoScreen from '../screens/Info/InfoScreen';
+import { SCREEN_NAMES } from '~app/appConstants';
+import HomeScreen from '~screens/Home/HomeScreen';
+import CartScreen from '~screens/Cart/CartScreen';
+import ProfileScreen from '~screens/Profile/ProfileScreen';
+import InfoScreen from '~screens/Info/InfoScreen';
 
 export const screens = {
   homeScreen: {

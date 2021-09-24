@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
-import InfoHours from './InfoHours';
-import InfoAddress from './InfoAddress';
+import InfoHours from '~screens/Info/InfoHours';
+import InfoAddress from '~screens/Info/InfoAddress';
 
 function InfoScreen() {
   return (

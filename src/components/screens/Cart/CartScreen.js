@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Text, View } from 'native-base';
-import { getCartItems } from '~redux/actions/cartActions';
+import { getCartItems } from '~actions/cartActions';
 
 function CartScreen({ cartItems }) {
   const { total, cart, itemCount } = cartItems;

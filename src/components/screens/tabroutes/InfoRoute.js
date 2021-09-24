@@ -1,8 +1,8 @@
 import React from 'react';
 import { VStack, Text } from 'native-base';
 import { ScrollView } from 'react-native';
-import GBLogo from '../../shared/GBLogo';
-import Map from '../../shared/Map';
+import GBLogo from '~sharedComponents/GBLogo';
+import Map from '~sharedComponents/Map';
 
 export default function InfoRoute() {
   const styles = getStyles();

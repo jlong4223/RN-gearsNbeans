@@ -5,8 +5,8 @@ import { HStack, Menu, useTheme, Pressable, Text } from 'native-base';
 import { scale, moderateScale } from 'react-native-size-matters';
 import PropTypes from 'prop-types';
 
-import { getCartItems } from '~redux/actions/cartActions';
-import { goToCart, goToProfile, goToInfo } from '../../app/navigation';
+import { getCartItems } from '~actions/cartActions';
+import { goToCart, goToProfile, goToInfo } from '~app/navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function HomeHeader({ cartItemCount }) {

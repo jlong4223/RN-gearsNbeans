@@ -1,4 +1,4 @@
-import { registerScreens } from './screenSetup';
+import { registerScreens } from '~app/screenSetup';
 
 export async function configApp() {
   registerScreens();

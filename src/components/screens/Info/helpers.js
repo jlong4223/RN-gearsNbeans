@@ -1,5 +1,5 @@
 import { Linking } from 'react-native';
-import { isiOS } from '../../app/platformHelpers';
+import { isiOS } from '~app/platformHelpers';
 
 export function getCompanyAddress() {
   return [

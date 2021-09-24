@@ -1,5 +1,5 @@
 import { Navigation } from 'react-native-navigation';
-import { SCREEN_NAMES, NAVIGATION_STACKS } from './appConstants';
+import { SCREEN_NAMES, NAVIGATION_STACKS } from '~app/appConstants';
 import truncate from 'lodash/truncate';
 import merge from 'lodash/merge';
 

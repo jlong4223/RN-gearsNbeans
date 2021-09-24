@@ -1,3 +1,3 @@
-import { configApp } from './components/app/screenRegister';
+import { configApp } from '~components/app/screenRegister';
 
 configApp();
