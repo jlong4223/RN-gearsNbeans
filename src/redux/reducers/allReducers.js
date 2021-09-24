@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { cartReducer } from '~reducers/cart';
+import { reviewReducer } from '~reducers/reviewReducer';
 
 export default combineReducers({
-  replaceMe: () => 5,
   form: formReducer,
   cart: cartReducer,
+  reviews: reviewReducer,
 });
