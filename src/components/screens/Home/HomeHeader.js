@@ -1,13 +1,18 @@
 import React from 'react';
-import { HStack, Menu, useTheme, Pressable } from 'native-base';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { HStack, Menu, useTheme, Pressable, Text } from 'native-base';
 import { scale, moderateScale } from 'react-native-size-matters';
+import PropTypes from 'prop-types';
+
+import { getCartItems } from '~redux/actions/cartActions';
 import { goToCart, goToProfile, goToInfo } from '../../app/navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function InboxHeader() {
+function HomeHeader({ cartItemCount }) {
   const theme = useTheme();
   const styles = getStyles(theme);
-  const menuItems = getMenuItems();
+  const menuItems = getMenuItems({ cartItemCount });
 
   return (
     <HStack style={styles.header}>
@@ -31,7 +36,10 @@ export default function InboxHeader() {
               onPress={() => {
                 item.navigate({});
               }}>
-              {item.name}
+              <Text>
+                {item.name}
+                {item.showCartItemCount && <Text>({cartItemCount})</Text>}
+              </Text>
               <Icon name={item.icon} size={25} style={styles.menuIcon} />
             </Menu.Item>
           </Pressable>
@@ -66,7 +74,9 @@ function getStyles(theme) {
   };
 }
 
-function getMenuItems() {
+function getMenuItems({ cartItemCount }) {
+  const showCartItemCount = cartItemCount > 0;
+
   return [
     {
       name: 'Profile',
@@ -79,6 +89,7 @@ function getMenuItems() {
       icon: 'cart-plus',
       key: 'cart',
       navigate: goToCart,
+      showCartItemCount,
     },
     {
       name: 'Info',
@@ -88,3 +99,18 @@ function getMenuItems() {
     },
   ];
 }
+
+HomeHeader.propTypes = {
+  cartItemCount: PropTypes.number,
+};
+
+const mapStateToProps = state => {
+  return {
+    cartItemCount: state.cart.itemCount,
+  };
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(getCartItems, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
