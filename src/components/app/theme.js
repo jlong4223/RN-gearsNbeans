@@ -20,6 +20,9 @@ function getTheme({ colorScheme }) {
   const lightModeGray = '#1d1d1d'; // secondary 700
   const darkModeGray = '#bfbfbf'; // secondary 200
 
+  const darkModeYellow = '#b39600';
+  const lightModeYellow = '#ffd700';
+
   const theme = {
     colors: {
       textColor: isDarkMode ? darkModeGray : '#fff',
@@ -29,6 +32,7 @@ function getTheme({ colorScheme }) {
       onSurfaceColor: isDarkMode ? darkModeGray : lightModeGray,
       onSurfaceIconColor: isDarkMode ? darkModeGray : '#fff',
       border: isDarkMode ? darkModeGray : lightModeGreen,
+      reviewsIcon: isDarkMode ? darkModeYellow : lightModeYellow,
       primary: {
         50: '#f7ffdf',
         100: '#e8feb0',
