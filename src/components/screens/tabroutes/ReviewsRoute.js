@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import meanBy from 'lodash/meanBy';
-import { Text, VStack, HStack, useTheme } from 'native-base';
+import { Text, VStack, HStack, Button, useTheme } from 'native-base';
 import { ScrollView } from 'react-native';
 import { getGBReviews } from '~actions/reviewsActions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function ReviewsRoute({ reviews, getGBReviews }) {
+  console.log('ReviewsRoute', reviews);
   const theme = useTheme();
   const styles = getStyles(theme);
   const reviewsStarAverage = getStarAverage({ reviews });
@@ -20,10 +21,27 @@ function ReviewsRoute({ reviews, getGBReviews }) {
 
   return (
     <ScrollView>
-      <VStack>
-        <Text>Reviews</Text>
-        <Text>{reviewsStarAverage}</Text>
-        <HStack>{ratingIcons}</HStack>
+      <VStack style={styles.container}>
+        <HStack>
+          <Text>Rating: </Text>
+          {ratingIcons}
+          <Text>({reviewsStarAverage})</Text>
+        </HStack>
+        {/* <Text>Reviews</Text> */}
+        {reviews.map(review => (
+          <VStack key={review._id} style={styles.reviewCard}>
+            <HStack style={styles.reviewHeader}>
+              <Text>{review.product}</Text>
+              {/* TODO refactor ratingsIcons function to be able to use here */}
+              <Text>{review.stars}</Text>
+            </HStack>
+            <Text>- {review.name}</Text>
+            <Text>{review.message}</Text>
+            {/* TODO use date-fns to update date here */}
+            <Text>{review.createdAt}</Text>
+          </VStack>
+        ))}
+        <Button>Add Review</Button>
       </VStack>
     </ScrollView>
   );
@@ -31,6 +49,21 @@ function ReviewsRoute({ reviews, getGBReviews }) {
 
 function getStyles(theme) {
   return {
+    container: {
+      alignItems: 'center',
+      paddingTop: 10,
+      paddingBottom: 10,
+    },
+    reviewCard: {
+      backgroundColor: theme.colors.surface,
+      width: '85%',
+      padding: 10,
+      margin: 10,
+      borderRadius: 10,
+    },
+    reviewHeader: {
+      justifyContent: 'space-between',
+    },
     ratingIcons: {
       color: theme.colors.reviewsIcon,
     },
