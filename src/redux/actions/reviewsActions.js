@@ -1,5 +1,10 @@
-import { getReviews } from '~services/gb-reviews';
-import { GET_REVIEWS, GET_REVIEWS_ERROR } from '~redux/constants';
+import { getReviews, getProducts } from '~services/gb-reviews';
+import {
+  GET_REVIEWS,
+  GET_REVIEWS_ERROR,
+  GET_PRODUCTS,
+  GET_PRODUCTS_ERROR,
+} from '~redux/constants';
 
 export const getGBReviews = () => {
   return async dispatch => {
@@ -13,6 +18,24 @@ export const getGBReviews = () => {
       .catch(error => {
         dispatch({
           type: GET_REVIEWS_ERROR,
+          payload: error,
+        });
+      });
+  };
+};
+
+export const getGBProducts = () => {
+  return async dispatch => {
+    await getProducts()
+      .then(products => {
+        dispatch({
+          type: GET_PRODUCTS,
+          payload: products.data,
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_PRODUCTS_ERROR,
           payload: error,
         });
       });
