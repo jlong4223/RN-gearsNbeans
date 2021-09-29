@@ -1,11 +1,9 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { HStack, Menu, useTheme, Pressable, Text } from 'native-base';
 import { scale, moderateScale } from 'react-native-size-matters';
 import PropTypes from 'prop-types';
 
-import { getCartItems } from '~actions/cartActions';
 import { goToCart, goToProfile, goToInfo } from '~app/navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -110,7 +108,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(getCartItems, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
+export default connect(mapStateToProps)(HomeHeader);
