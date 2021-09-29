@@ -1,9 +1,8 @@
-import { GET_CART_ITEM_COUNT } from '~redux/constants';
+import { ADD_TO_CART } from '~redux/constants';
 
-export const getCartItems = () => {
-  // TODO update this later when actually putting data in the database
+export const addToCart = product => {
   return {
-    type: GET_CART_ITEM_COUNT,
-    payload: 2,
+    type: ADD_TO_CART,
+    payload: product,
   };
 };

@@ -1,4 +1,4 @@
-import { GET_CART_ITEM_COUNT } from '~redux/constants';
+import { ADD_TO_CART } from '~redux/constants';
 
 const initialState = {
   cart: [],
@@ -8,8 +8,13 @@ const initialState = {
 
 export function cartReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_CART_ITEM_COUNT:
-      return { ...state, itemCount: action.payload };
+    case ADD_TO_CART:
+      return {
+        ...state,
+        cart: [...state.cart, action.payload],
+        total: state.total + action.payload.price,
+        itemCount: state.itemCount + 1,
+      };
     default:
       return state;
   }
