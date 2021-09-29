@@ -1,16 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Text, View } from 'native-base';
-import { getCartItems } from '~actions/cartActions';
-
+import { View } from 'native-base';
+import CartMessage from '~screens/Cart/CartMessage';
 function CartScreen({ cartItems }) {
   const { total, cart, itemCount } = cartItems;
 
   return (
     <View>
-      <Text>You have {itemCount} items in your cart</Text>
+      <CartMessage total={total} itemCount={itemCount} />
     </View>
   );
 }
@@ -25,7 +23,4 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(getCartItems, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);
+export default connect(mapStateToProps)(CartScreen);
