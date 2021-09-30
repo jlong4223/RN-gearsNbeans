@@ -31,6 +31,7 @@ function CoffeeProductsRoute({ products, getGBProducts, addToCart }) {
     addToCart(product);
   }
 
+  // TODO this is essentially going to be used for the bike services page; need to refactor to make it more reusable and import here to pass necessary props
   return (
     <ScrollView>
       <HStack style={styles.container}>
