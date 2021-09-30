@@ -1,16 +1,16 @@
-import { GET_PRODUCTS, GET_ERROR } from '~redux/constants';
+import { GET_SERVICES, GET_ERROR } from '~redux/constants';
 
 const initialState = {
-  products: [],
+  services: [],
   error: null,
 };
 
-export function productsReducer(state = initialState, action) {
+export function bikeServicesReducer(state = initialState, action) {
   switch (action.type) {
-    case GET_PRODUCTS:
+    case GET_SERVICES:
       return {
         ...state,
-        products: action.payload,
+        services: action.payload,
       };
     case GET_ERROR:
       return {

@@ -1,4 +1,4 @@
-import { GET_REVIEWS, GET_REVIEWS_ERROR } from '../constants';
+import { GET_REVIEWS, GET_ERROR } from '~redux/constants';
 
 const initialState = {
   reviews: [],
@@ -12,7 +12,7 @@ export function reviewReducer(state = initialState, action) {
         ...state,
         reviews: action.payload,
       };
-    case GET_REVIEWS_ERROR:
+    case GET_ERROR:
       return {
         ...state,
         error: action.payload,
