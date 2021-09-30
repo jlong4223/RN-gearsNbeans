@@ -9,7 +9,6 @@ import { getGBReviews } from '~actions/reviewsActions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function ReviewsRoute({ reviews, getGBReviews }) {
-  console.log('ReviewsRoute', reviews);
   const theme = useTheme();
   const styles = getStyles(theme);
   const reviewsStarAverage = getStarAverage({ reviews });
@@ -20,6 +19,7 @@ function ReviewsRoute({ reviews, getGBReviews }) {
   }, [getGBReviews]);
 
   return (
+    // TODO add a filter by review rating
     <ScrollView>
       <VStack style={styles.container}>
         <HStack>
@@ -27,13 +27,11 @@ function ReviewsRoute({ reviews, getGBReviews }) {
           {ratingIcons}
           <Text>({reviewsStarAverage})</Text>
         </HStack>
-        {/* <Text>Reviews</Text> */}
         {reviews.map(review => (
           <VStack key={review._id} style={styles.reviewCard}>
             <HStack style={styles.reviewHeader}>
               <Text>{review.product}</Text>
-              {/* TODO refactor ratingsIcons function to be able to use here */}
-              <Text>{review.stars}</Text>
+              <HStack>{getStarsFromOneRating(review.stars)}</HStack>
             </HStack>
             <Text>- {review.name}</Text>
             <Text>{review.message}</Text>
@@ -41,6 +39,7 @@ function ReviewsRoute({ reviews, getGBReviews }) {
             <Text>{review.createdAt}</Text>
           </VStack>
         ))}
+        {/* TODO have this bring up a modal */}
         <Button>Add Review</Button>
       </VStack>
     </ScrollView>
@@ -91,6 +90,12 @@ function getRatingIconsFromAverage({ reviews, styles }) {
   ));
 }
 
+function getStarsFromOneRating(review) {
+  const stars = Array.from({ length: review });
+
+  return stars.map((r, i) => <Icon key={i} name="star" />);
+}
+
 ReviewsRoute.propTypes = {
   getGBReviews: PropTypes.func.isRequired,
   reviews: PropTypes.array,
@@ -101,10 +106,5 @@ const mapStateToProps = state => {
     reviews: state.reviews.reviews,
   };
 };
-
-// BUG this works but gives a console error; figure out how to solve this and remove the useEffect hook
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators(getGBReviews, dispatch);
-// }
 
 export default connect(mapStateToProps, { getGBReviews })(ReviewsRoute);
