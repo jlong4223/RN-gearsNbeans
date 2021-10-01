@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { addToCart } from '~actions/cartActions';
 import { getProductStyles } from '~sharedComponents/styles/productStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import InfoPopover from '~sharedComponents/InfoPopover';
 import {
   Text,
-  Popover,
   Image,
   ScrollView,
   useTheme,
@@ -45,28 +45,11 @@ function BikeServicesRoute({ bikeServices, getGBBikeServices, addToCart }) {
                 onPress={() => addToCart(service)}>
                 <Icon name="cart-plus" size={30} style={styles.btnIcon} />
               </Button>
-              <Popover
-                // TODO look at android
-                // offset={-50}
-                placement="top"
-                trigger={triggerProps => {
-                  return (
-                    <Button colorScheme={btnColorScheme} {...triggerProps}>
-                      <Icon
-                        name="info-circle"
-                        size={30}
-                        style={styles.btnIcon}
-                      />
-                    </Button>
-                  );
-                }}>
-                <Popover.Content accessibilityLabel="service-info" w="56">
-                  <Popover.Arrow />
-                  <Popover.CloseButton />
-                  <Popover.Header>{service.name}</Popover.Header>
-                  <Popover.Body>{service.description}</Popover.Body>
-                </Popover.Content>
-              </Popover>
+              <InfoPopover
+                product={service}
+                btnColorScheme={btnColorScheme}
+                styles={styles}
+              />
             </HStack>
           </VStack>
         ))}

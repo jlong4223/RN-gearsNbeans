@@ -6,9 +6,9 @@ import { addToCart } from '~actions/cartActions';
 import { getProductStyles } from '~sharedComponents/styles/productStyles';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import InfoPopover from '~sharedComponents/InfoPopover';
 import {
   Text,
-  Popover,
   Image,
   ScrollView,
   useTheme,
@@ -27,7 +27,6 @@ function CoffeeProductsRoute({ products, getGBProducts, addToCart }) {
     getGBProducts();
   }, [getGBProducts]);
 
-  // TODO this is essentially going to be used for the bike services page; need to refactor to make it more reusable and import here to pass necessary props
   return (
     <ScrollView>
       <HStack style={styles.container}>
@@ -48,28 +47,11 @@ function CoffeeProductsRoute({ products, getGBProducts, addToCart }) {
                 onPress={() => addToCart(product)}>
                 <Icon name="cart-plus" size={30} style={styles.btnIcon} />
               </Button>
-              <Popover
-                // TODO look at android
-                // offset={-50}
-                placement="top"
-                trigger={triggerProps => {
-                  return (
-                    <Button colorScheme={btnColorScheme} {...triggerProps}>
-                      <Icon
-                        name="info-circle"
-                        size={30}
-                        style={styles.btnIcon}
-                      />
-                    </Button>
-                  );
-                }}>
-                <Popover.Content accessibilityLabel="product-info" w="56">
-                  <Popover.Arrow />
-                  <Popover.CloseButton />
-                  <Popover.Header>{product.name}</Popover.Header>
-                  <Popover.Body>{product.description}</Popover.Body>
-                </Popover.Content>
-              </Popover>
+              <InfoPopover
+                product={product}
+                btnColorScheme={btnColorScheme}
+                styles={styles}
+              />
             </HStack>
           </VStack>
         ))}
