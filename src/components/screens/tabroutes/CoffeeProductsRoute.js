@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getGBProducts } from '~actions/reviewsActions';
 import { addToCart } from '~actions/cartActions';
+import { getProductStyles } from '~sharedComponents/styles/productStyles';
+import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   Text,
   Popover,
@@ -14,22 +17,15 @@ import {
   Button,
   useColorModeValue,
 } from 'native-base';
-import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/FontAwesome';
-
 // eslint-disable-next-line no-shadow
 function CoffeeProductsRoute({ products, getGBProducts, addToCart }) {
   const theme = useTheme();
-  const styles = getStyles(theme);
+  const styles = getProductStyles(theme);
   const btnColorScheme = useColorModeValue('primary', 'secondary');
 
   useEffect(() => {
     getGBProducts();
   }, [getGBProducts]);
-
-  function addItemToCart(product) {
-    addToCart(product);
-  }
 
   // TODO this is essentially going to be used for the bike services page; need to refactor to make it more reusable and import here to pass necessary props
   return (
@@ -49,13 +45,13 @@ function CoffeeProductsRoute({ products, getGBProducts, addToCart }) {
             <HStack style={styles.btnContainer}>
               <Button
                 colorScheme={btnColorScheme}
-                onPress={() => addItemToCart(product)}>
+                onPress={() => addToCart(product)}>
                 <Icon name="cart-plus" size={30} style={styles.btnIcon} />
               </Button>
               <Popover
                 // TODO look at android
-                offset={-50}
-                // placement="top"
+                // offset={-50}
+                placement="top"
                 trigger={triggerProps => {
                   return (
                     <Button colorScheme={btnColorScheme} {...triggerProps}>
@@ -80,36 +76,6 @@ function CoffeeProductsRoute({ products, getGBProducts, addToCart }) {
       </HStack>
     </ScrollView>
   );
-}
-
-function getStyles(theme) {
-  return {
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      flexWrap: 'wrap',
-    },
-    productContainer: {
-      margin: 10,
-      padding: 8,
-      borderRadius: 10,
-      borderWidth: 0.2,
-      boxShadow: '15px 15px 15px #000',
-    },
-
-    productImg: {
-      width: 140,
-      height: 130,
-      borderRadius: 10,
-      marginBottom: 10,
-    },
-    btnContainer: {
-      justifyContent: 'space-around',
-    },
-    btnIcon: {
-      color: theme.colors.altBackground,
-    },
-  };
 }
 
 CoffeeProductsRoute.propTypes = {
