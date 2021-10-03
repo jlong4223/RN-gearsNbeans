@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import reduxThunk from 'redux-thunk';
-import allReducers from '../../../redux/reducers/allReducers';
-
-const store = createStore(allReducers, compose(applyMiddleware(reduxThunk)));
+import { store, persistor } from '~redux/store';
 
 export default function ReduxProvider({ children }) {
-  return <Provider store={store}>{children}</Provider>;
+  return (
+    <Provider store={store} persistor={persistor}>
+      {children}
+    </Provider>
+  );
 }
 
 ReduxProvider.propTypes = {
