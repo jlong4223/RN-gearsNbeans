@@ -1,5 +1,5 @@
 const SCREEN_NAMES = {
-  HOME: 'Home',
+  HOME: 'HomeScreen',
   CART_SCREEN: 'CartScreen',
   PROFILE_SCREEN: 'ProfileScreen',
   INFO_SCREEN: 'InfoScreen',

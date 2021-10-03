@@ -1,6 +1,11 @@
-import { LOGIN_USER, GET_ERROR } from '~redux/constants';
+import { LOGIN_USER, LOGOUT_USER, GET_ERROR } from '~redux/constants';
 import { login } from '~services/gb-auth';
-import { setToken, getEntireUserFromToken } from '~services/auth-token';
+import { setBaseRoot } from '~app/navigation';
+import {
+  setToken,
+  getEntireUserFromToken,
+  removeAuthToken,
+} from '~services/auth-token';
 
 export const loginUser = userDetails => {
   return async dispatch => {
@@ -12,6 +17,8 @@ export const loginUser = userDetails => {
       await setToken(token);
       const userDataFromToken = await getEntireUserFromToken();
 
+      setBaseRoot();
+
       dispatch({
         type: LOGIN_USER,
         payload: userDataFromToken,
@@ -22,5 +29,12 @@ export const loginUser = userDetails => {
       type: GET_ERROR,
       payload: response.data.message,
     });
+  };
+};
+
+export const logoutUser = () => {
+  removeAuthToken();
+  return {
+    type: LOGOUT_USER,
   };
 };
