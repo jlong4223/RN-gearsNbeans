@@ -10,6 +10,10 @@ export const getToken = async () => {
   return userToken;
 };
 
+export const removeAuthToken = async () => {
+  return AsyncStorage.removeItem('auth-token');
+};
+
 export const getEntireUserFromToken = async () => {
   const token = await getToken();
   if (token) {
