@@ -1,9 +1,7 @@
 import { getReviews, getProducts, getBikeServices } from '~services/gb-reviews';
 import {
   GET_REVIEWS,
-  GET_REVIEWS_ERROR,
   GET_PRODUCTS,
-  GET_PRODUCTS_ERROR,
   GET_SERVICES,
   GET_ERROR,
 } from '~redux/constants';
@@ -19,7 +17,7 @@ export const getGBReviews = () => {
       })
       .catch(error => {
         dispatch({
-          type: GET_REVIEWS_ERROR,
+          type: GET_ERROR,
           payload: error,
         });
       });
@@ -37,7 +35,7 @@ export const getGBProducts = () => {
       })
       .catch(error => {
         dispatch({
-          type: GET_PRODUCTS_ERROR,
+          type: GET_ERROR,
           payload: error,
         });
       });
