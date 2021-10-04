@@ -3,6 +3,7 @@ import HomeScreen from '~screens/Home/HomeScreen';
 import CartScreen from '~screens/Cart/CartScreen';
 import ProfileScreen from '~screens/Profile/ProfileScreen';
 import InfoScreen from '~screens/Info/InfoScreen';
+import SignInScreen from '~screens/Profile/SignInScreen';
 
 export const screens = {
   homeScreen: {
@@ -20,6 +21,10 @@ export const screens = {
   infoScreen: {
     name: SCREEN_NAMES.INFO_SCREEN,
     component: InfoScreen,
+  },
+  signInScreen: {
+    name: SCREEN_NAMES.SIGN_IN_SCREEN,
+    component: SignInScreen,
   },
 };
 

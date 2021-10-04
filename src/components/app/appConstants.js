@@ -3,6 +3,7 @@ const SCREEN_NAMES = {
   CART_SCREEN: 'CartScreen',
   PROFILE_SCREEN: 'ProfileScreen',
   INFO_SCREEN: 'InfoScreen',
+  SIGN_IN_SCREEN: 'SignInScreen',
 };
 
 const NAVIGATION_STACKS = {

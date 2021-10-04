@@ -113,3 +113,18 @@ export function goToInfo({ options } = {}) {
     options: combinedOptions,
   });
 }
+
+export function goToSignIn({ options } = {}) {
+  const combinedOptions = merge(options, {
+    topBar: {
+      title: {
+        text: 'Sign In',
+      },
+    },
+  });
+
+  pushScreen({
+    componentName: SCREEN_NAMES.SIGN_IN_SCREEN,
+    options: combinedOptions,
+  });
+}
