@@ -1,4 +1,8 @@
-import { ADD_TO_CART } from '~redux/constants';
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  CLEAR_ENTIRE_CART,
+} from '~redux/constants';
 
 export const addToCart = product => {
   return {
@@ -6,3 +10,14 @@ export const addToCart = product => {
     payload: product,
   };
 };
+
+export const removeFromCart = product => {
+  return {
+    type: REMOVE_FROM_CART,
+    payload: product,
+  };
+};
+
+export const clearEntireCart = () => ({
+  type: CLEAR_ENTIRE_CART,
+});
