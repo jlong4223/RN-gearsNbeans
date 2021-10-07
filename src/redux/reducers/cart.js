@@ -39,12 +39,14 @@ export function cartReducer(state = initialState, action) {
         itemCount: state.itemCount + 1,
       };
 
+    // TODO need actions & reducers for adding/removing item quantity
+
     case REMOVE_FROM_CART:
       return {
         ...state,
         cart: state.cart.filter(item => item._id !== action.payload._id),
-        total: state.total - action.payload.price,
-        itemCount: state.itemCount - 1,
+        total: state.total - action.payload.price * action.payload.quantity,
+        itemCount: state.itemCount - action.payload.quantity,
       };
     case CLEAR_ENTIRE_CART:
       return {
