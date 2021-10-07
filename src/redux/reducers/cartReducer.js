@@ -2,6 +2,8 @@ import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   CLEAR_ENTIRE_CART,
+  ADD_ITEM_QUANTITY,
+  SUBTRACT_ITEM_QUANTITY,
 } from '~redux/constants';
 
 const initialState = {
@@ -39,7 +41,18 @@ export function cartReducer(state = initialState, action) {
         itemCount: state.itemCount + 1,
       };
 
-    // TODO need actions & reducers for adding/removing item quantity
+    // TODO need actions & reducers for removing item quantity
+    case ADD_ITEM_QUANTITY:
+      return {
+        ...state,
+        cart: state.cart.map(item =>
+          item._id === action.payload._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        ),
+        total: state.total + action.payload.price,
+        itemCount: state.itemCount + 1,
+      };
 
     case REMOVE_FROM_CART:
       return {
