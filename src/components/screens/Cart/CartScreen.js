@@ -1,12 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {
-  removeFromCart,
-  clearEntireCart,
-  addQuantityToCartItem,
-  removeQuantityFromCartItem,
-} from '~actions/cartActions';
+import * as actions from '~actions/cartActions';
 import { Text, View, Button } from 'native-base';
 import CartMessage from '~screens/Cart/CartMessage';
 import CheckoutBtn from '~screens/Cart/CheckoutBtn';
@@ -78,9 +73,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {
-  removeFromCart,
-  clearEntireCart,
-  addQuantityToCartItem,
-  removeQuantityFromCartItem,
-})(CartScreen);
+export default connect(mapStateToProps, actions)(CartScreen);

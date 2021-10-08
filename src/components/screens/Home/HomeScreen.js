@@ -6,7 +6,6 @@ import { TabView } from 'react-native-tab-view';
 import { setScreenTitle } from '~app/navigation';
 import { allRoutes, renderScreenScene } from '~screens/tabroutes/allTabRoutes';
 import { HomeTabBar } from './HomeTabBar';
-import PropTypes from 'prop-types';
 import HomeHeader from '~screens/Home/HomeHeader';
 
 function HomeScreen() {

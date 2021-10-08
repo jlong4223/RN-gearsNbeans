@@ -27,6 +27,8 @@ function CartItems({
     <ScrollView>
       {cart.map(item => (
         <HStack key={item._id} style={styles.container}>
+          {/* TODO remove later */}
+          {/* eslint-disable-next-line no-console */}
           <Pressable onPress={() => console.log('pressed item')}>
             <HStack style={styles.cartCard}>
               <VStack>

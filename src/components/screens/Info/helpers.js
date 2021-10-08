@@ -25,6 +25,7 @@ export async function openMaps(location) {
       Linking.openURL(link);
     }
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log('InfoAddress maps error: ', error);
   }
 }
