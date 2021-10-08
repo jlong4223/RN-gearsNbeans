@@ -31,3 +31,7 @@ Android Sim:
 - XCode
 - Android Studio
 - Git
+
+## Future Enhancments:
+
+- stripe

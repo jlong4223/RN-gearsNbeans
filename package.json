@@ -15,6 +15,7 @@
     "@react-native-community/viewpager": "^5.0.11",
     "axios": "^0.21.4",
     "date-fns": "^2.24.0",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "native-base": "^3.1.0",
     "prop-types": "^15.7.2",
@@ -32,6 +33,7 @@
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "redux-form": "^8.3.7",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "styled-components": "^5.3.1",
     "styled-system": "^5.1.5"
