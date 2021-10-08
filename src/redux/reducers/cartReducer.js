@@ -41,7 +41,6 @@ export function cartReducer(state = initialState, action) {
         itemCount: state.itemCount + 1,
       };
 
-    // TODO need actions & reducers for removing item quantity
     case ADD_ITEM_QUANTITY:
       return {
         ...state,
@@ -52,6 +51,18 @@ export function cartReducer(state = initialState, action) {
         ),
         total: state.total + action.payload.price,
         itemCount: state.itemCount + 1,
+      };
+
+    case SUBTRACT_ITEM_QUANTITY:
+      return {
+        ...state,
+        cart: state.cart.map(item =>
+          item._id === action.payload._id
+            ? { ...item, quantity: item.quantity - 1 }
+            : item,
+        ),
+        total: state.total - action.payload.price,
+        itemCount: state.itemCount - 1,
       };
 
     case REMOVE_FROM_CART:

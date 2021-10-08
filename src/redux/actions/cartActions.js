@@ -30,3 +30,10 @@ export const addQuantityToCartItem = product => {
     payload: product,
   };
 };
+
+export const removeQuantityFromCartItem = product => {
+  return {
+    type: SUBTRACT_ITEM_QUANTITY,
+    payload: product,
+  };
+};
