@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
-import meanBy from 'lodash/meanBy';
 import { Text, VStack, HStack, Button, useTheme } from 'native-base';
 import { ScrollView } from 'react-native';
-import { getGBReviews } from '~actions/reviewsActions';
+import { connect } from 'react-redux';
+import { getFormattedDate } from '~sharedComponents/appHelpers';
+import * as reviewsActions from '~actions/reviewsActions';
+import PropTypes from 'prop-types';
+import meanBy from 'lodash/meanBy';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 function ReviewsRoute({ reviews, getGBReviews }) {
@@ -19,7 +19,7 @@ function ReviewsRoute({ reviews, getGBReviews }) {
   }, [getGBReviews]);
 
   return (
-    // TODO add a filter by review rating
+    // TODO add a filter by review rating & by date
     <ScrollView>
       <VStack style={styles.container}>
         <HStack>
@@ -35,8 +35,7 @@ function ReviewsRoute({ reviews, getGBReviews }) {
             </HStack>
             <Text>- {review.name}</Text>
             <Text>{review.message}</Text>
-            {/* TODO use date-fns to update date here */}
-            <Text>{review.createdAt}</Text>
+            <Text>{getFormattedDate(review.createdAt)}</Text>
           </VStack>
         ))}
         {/* TODO have this bring up a modal */}
@@ -107,4 +106,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getGBReviews })(ReviewsRoute);
+export default connect(mapStateToProps, reviewsActions)(ReviewsRoute);
