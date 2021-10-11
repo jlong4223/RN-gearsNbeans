@@ -11,9 +11,8 @@ function CartItems({
 }) {
   const styles = getStyles();
 
-  function removeItemFromCart(item) {
-    item.quantity > 1 ? removeQuantityFromCartItem(item) : removeFromCart(item);
-  }
+  const removeItem = item =>
+    removeItemFromCart({ item, removeFromCart, removeQuantityFromCartItem });
 
   return (
     <ScrollView>
@@ -30,9 +29,7 @@ function CartItems({
                 <Text>Count: {item.quantity}</Text>
               </VStack>
               <HStack>
-                <Button
-                  style={styles.qtyBtns}
-                  onPress={() => removeItemFromCart(item)}>
+                <Button style={styles.qtyBtns} onPress={() => removeItem(item)}>
                   -
                 </Button>
                 <Button
@@ -74,6 +71,13 @@ function getStyles() {
   };
 }
 
+function removeItemFromCart({
+  item,
+  removeFromCart,
+  removeQuantityFromCartItem,
+}) {
+  item.quantity > 1 ? removeQuantityFromCartItem(item) : removeFromCart(item);
+}
 CartItems.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeFromCart: PropTypes.func.isRequired,
