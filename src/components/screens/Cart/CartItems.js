@@ -2,15 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '~actions/cartActions';
-import {
-  Text,
-  HStack,
-  VStack,
-  Pressable,
-  Button,
-  ScrollView,
-} from 'native-base';
-
+import { Text, HStack, VStack, Button, ScrollView } from 'native-base';
 function CartItems({
   cart,
   removeFromCart,
@@ -27,22 +19,30 @@ function CartItems({
     <ScrollView>
       {cart.map(item => (
         <HStack key={item._id} style={styles.container}>
-          {/* TODO remove later */}
-          {/* eslint-disable-next-line no-console */}
-          <Pressable onPress={() => console.log('pressed item')}>
-            <HStack style={styles.cartCard}>
-              <VStack>
-                <Text fontSize="lg">{item.name}</Text>
-                <Text style={styles.description}>{item.description}</Text>
-              </VStack>
-              <VStack>
+          <HStack style={styles.cartCard}>
+            <VStack>
+              <Text fontSize="lg">{item.name}</Text>
+              <Text style={styles.description}>{item.description}</Text>
+            </VStack>
+            <VStack>
+              <VStack style={styles.itemDetails}>
                 <Text>${item.price}</Text>
-                <Text>Quantity: {item.quantity}</Text>
-                <Button onPress={() => addQuantityToCartItem(item)}>+</Button>
-                <Button onPress={() => removeItemFromCart(item)}>-</Button>
+                <Text>Count: {item.quantity}</Text>
               </VStack>
-            </HStack>
-          </Pressable>
+              <HStack>
+                <Button
+                  style={styles.qtyBtns}
+                  onPress={() => removeItemFromCart(item)}>
+                  -
+                </Button>
+                <Button
+                  onPress={() => addQuantityToCartItem(item)}
+                  style={styles.qtyBtns}>
+                  +
+                </Button>
+              </HStack>
+            </VStack>
+          </HStack>
         </HStack>
       ))}
     </ScrollView>
@@ -57,7 +57,6 @@ function getStyles() {
     cartCard: {
       marginTop: 15,
       marginLeft: 5,
-      // height: 90,
       padding: 5,
       justifyContent: 'space-between',
       width: '90%',
@@ -65,6 +64,12 @@ function getStyles() {
     description: {
       width: 250,
       marginLeft: 10,
+    },
+    qtyBtns: {
+      margin: 2,
+    },
+    itemDetails: {
+      alignItems: 'flex-end',
     },
   };
 }
