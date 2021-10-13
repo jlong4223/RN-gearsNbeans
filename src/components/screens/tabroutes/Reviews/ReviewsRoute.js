@@ -6,6 +6,7 @@ import { getFormattedDate } from '~sharedComponents/appHelpers';
 import * as reviewsActions from '~actions/reviewsActions';
 import PropTypes from 'prop-types';
 import meanBy from 'lodash/meanBy';
+import round from 'lodash/round';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ReviewForm from './ReviewForm';
 
@@ -75,8 +76,7 @@ function getStyles(theme) {
 }
 
 function getStarAverage({ reviews }) {
-  // TODO limit the decimal place to 2
-  return meanBy(reviews, 'stars');
+  return round(meanBy(reviews, 'stars'), 2);
 }
 
 function getRatingIconsFromAverage({ reviews, styles }) {
