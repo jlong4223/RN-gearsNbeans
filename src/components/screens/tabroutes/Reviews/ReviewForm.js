@@ -1,24 +1,43 @@
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { Button, FormControl, Modal, Input } from 'native-base';
+import {
+  Button,
+  FormControl,
+  Modal,
+  Input,
+  HStack,
+  Pressable,
+  useTheme,
+} from 'native-base';
 import { postReview } from '~services/gb-reviews';
 import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 function ReviewForm({ getGBReviews }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [starSelected, setStarSelected] = useState(0);
   const [reviewInfo, setReviewInfo] = useState({});
   const initialRef = useRef(null);
   const finalRef = useRef(null);
+  const theme = useTheme();
+  const styles = getStyles({ theme });
+  const starSelection = Array.from(Array(5).keys());
 
   const handleChange = (name, value) => {
-    setReviewInfo({ ...reviewInfo, [name]: value });
+    const setReview = setReviewInfo({ ...reviewInfo, [name]: value });
+
+    name === 'stars' ? setStarSelected(value) && setReview : setReview;
   };
 
-  const handleSubmit = () => {
-    //  post the review
+  const handleSubmit = async () => {
     postReview(reviewInfo);
-    getGBReviews();
+    await getGBReviews();
     setModalVisible(false);
+  };
+
+  const handleCancelReview = () => {
+    setModalVisible(false);
+    setStarSelected(0);
   };
 
   //   TODO refactor this to make it better
@@ -59,11 +78,19 @@ function ReviewForm({ getGBReviews }) {
             </FormControl>
             <FormControl mt="3">
               <FormControl.Label>Stars</FormControl.Label>
-              <Input
-                name="stars"
-                onChangeText={value => handleChange('stars', value)}
-              />
-              {/* TODO change this to a star selection */}
+              <HStack style={styles.starSelection}>
+                {starSelection.map((s, i) => (
+                  <Pressable
+                    key={i}
+                    onPress={() => handleChange('stars', i + 1)}>
+                    <Icon
+                      name="star"
+                      size={30}
+                      color={starSelected > i ? styles.starIcon.color : 'black'}
+                    />
+                  </Pressable>
+                ))}
+              </HStack>
             </FormControl>
           </Modal.Body>
           <Modal.Footer>
@@ -71,9 +98,7 @@ function ReviewForm({ getGBReviews }) {
               <Button
                 variant="ghost"
                 colorScheme="blueGray"
-                onPress={() => {
-                  setModalVisible(false);
-                }}>
+                onPress={handleCancelReview}>
                 Cancel
               </Button>
               <Button onPress={handleSubmit}>Save</Button>
@@ -91,6 +116,16 @@ function ReviewForm({ getGBReviews }) {
   );
 }
 
+function getStyles({ theme }) {
+  return {
+    starSelection: {
+      justifyContent: 'space-around',
+    },
+    starIcon: {
+      color: theme.colors.reviewsIcon,
+    },
+  };
+}
 ReviewForm.propTypes = {
   getGBReviews: PropTypes.func,
 };
