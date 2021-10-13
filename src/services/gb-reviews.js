@@ -14,3 +14,8 @@ export const getBikeServices = async () => {
   const services = await gbApi.get('/services');
   return services;
 };
+
+export const postReview = review => {
+  console.log('review sendingL ', review);
+  return gbApi.post('/reviews', review);
+};
