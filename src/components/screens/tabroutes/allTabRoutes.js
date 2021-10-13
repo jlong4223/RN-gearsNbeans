@@ -1,7 +1,7 @@
 import { SceneMap } from 'react-native-tab-view';
 import BikeServicesRoute from './BikeServicesRoute';
 import CoffeeProductsRoute from './CoffeeProductsRoute';
-import ReviewsRoute from '~screens/tabroutes/ReviewsRoute';
+import ReviewsRoute from '~screens/tabroutes/Reviews/ReviewsRoute';
 import InfoRoute from '~screens/tabroutes/InfoRoute';
 
 export const allRoutes = [

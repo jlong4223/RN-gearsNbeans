@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, VStack, HStack, Button, useTheme } from 'native-base';
+import { Text, VStack, HStack, useTheme } from 'native-base';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { getFormattedDate } from '~sharedComponents/appHelpers';
@@ -7,6 +7,7 @@ import * as reviewsActions from '~actions/reviewsActions';
 import PropTypes from 'prop-types';
 import meanBy from 'lodash/meanBy';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import ReviewForm from './ReviewForm';
 
 function ReviewsRoute({ reviews, getGBReviews }) {
   const theme = useTheme();
@@ -20,28 +21,29 @@ function ReviewsRoute({ reviews, getGBReviews }) {
 
   return (
     // TODO add a filter by review rating & by date
-    <ScrollView>
-      <VStack style={styles.container}>
-        <HStack>
-          <Text>Rating: </Text>
-          {ratingIcons}
-          <Text>({reviewsStarAverage})</Text>
-        </HStack>
-        {reviews.map(review => (
-          <VStack key={review._id} style={styles.reviewCard}>
-            <HStack style={styles.reviewHeader}>
-              <Text>{review.product}</Text>
-              <HStack>{getStarsFromOneRating(review.stars)}</HStack>
-            </HStack>
-            <Text>- {review.name}</Text>
-            <Text>{review.message}</Text>
-            <Text>{getFormattedDate(review.createdAt)}</Text>
-          </VStack>
-        ))}
-        {/* TODO have this bring up a modal */}
-        <Button>Add Review</Button>
-      </VStack>
-    </ScrollView>
+    <>
+      <HStack style={styles.ratingContainer}>
+        <Text>Rating: </Text>
+        {ratingIcons}
+        <Text>({reviewsStarAverage})</Text>
+      </HStack>
+      <ScrollView>
+        <VStack style={styles.container}>
+          {reviews.map(review => (
+            <VStack key={review._id} style={styles.reviewCard}>
+              <HStack style={styles.reviewHeader}>
+                <Text>{review.product}</Text>
+                <HStack>{getStarsFromOneRating(review.stars)}</HStack>
+              </HStack>
+              <Text>- {review.name}</Text>
+              <Text>{review.message}</Text>
+              <Text>{getFormattedDate(review.createdAt)}</Text>
+            </VStack>
+          ))}
+        </VStack>
+      </ScrollView>
+      <ReviewForm getGBReviews={getGBReviews} />
+    </>
   );
 }
 
@@ -49,7 +51,6 @@ function getStyles(theme) {
   return {
     container: {
       alignItems: 'center',
-      paddingTop: 10,
       paddingBottom: 10,
     },
     reviewCard: {
@@ -65,10 +66,16 @@ function getStyles(theme) {
     ratingIcons: {
       color: theme.colors.reviewsIcon,
     },
+    ratingContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 40,
+    },
   };
 }
 
 function getStarAverage({ reviews }) {
+  // TODO limit the decimal place to 2
   return meanBy(reviews, 'stars');
 }
 
