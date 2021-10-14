@@ -43,7 +43,7 @@ function ReviewsRoute({ reviews, getGBReviews }) {
           ))}
         </VStack>
       </ScrollView>
-      <ReviewForm getGBReviews={getGBReviews} />
+      <ReviewForm />
     </>
   );
 }
@@ -98,7 +98,6 @@ function getRatingIconsFromAverage({ reviews, styles }) {
 
 function getStarsFromOneRating(review) {
   const stars = Array.from({ length: review });
-
   return stars.map((r, i) => <Icon key={i} name="star" />);
 }
 

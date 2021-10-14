@@ -9,6 +9,7 @@ import {
   Pressable,
   useTheme,
 } from 'native-base';
+import * as reviewsActions from '~actions/reviewsActions';
 import { postReview } from '~services/gb-reviews';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -27,17 +28,16 @@ function ReviewForm({ getGBReviews }) {
 
   const reviewInput = getReviewInput({ initialRef });
 
-  const handleSubmit = async () => {
-    postReview(reviewInfo);
-    await getGBReviews();
-    setModalVisible(false);
-    setReviewInfo({});
-  };
-
-  const handleCancelReview = () => {
+  const resetAllState = () => {
     setModalVisible(false);
     setStarSelected(0);
     setReviewInfo({});
+  };
+
+  const handleSubmit = async () => {
+    postReview(reviewInfo);
+    await getGBReviews();
+    resetAllState();
   };
 
   return (
@@ -51,24 +51,23 @@ function ReviewForm({ getGBReviews }) {
           <Modal.Header>Create a Review</Modal.Header>
           <Modal.Body>
             {reviewInput.map(
-              ({ name, label, type, ref, pressable, maxHeight, multiline }) => (
+              ({ name, label, ref, pressableStars, maxHeight, multiline }) => (
                 <FormControl key={name} mt={3}>
                   <FormControl.Label>{label}</FormControl.Label>
-                  {type !== 'selection' && (
+                  {!pressableStars && (
                     <Input
                       ref={ref}
                       onChangeText={value => handleChange(name, value)}
-                      value={reviewInfo[name]}
                       multiline={multiline}
                       maxHeight={maxHeight}
                     />
                   )}
-                  {pressable && (
+                  {pressableStars && (
                     <HStack style={styles.starSelection}>
                       {starSelection.map((s, i) => (
                         <Pressable
                           key={i}
-                          onPress={() => handleChange('stars', i + 1)}>
+                          onPress={() => handleChange(name, i + 1)}>
                           <Icon
                             name="star"
                             size={30}
@@ -89,10 +88,10 @@ function ReviewForm({ getGBReviews }) {
               <Button
                 variant="ghost"
                 colorScheme="blueGray"
-                onPress={handleCancelReview}>
+                onPress={resetAllState}>
                 Cancel
               </Button>
-              <Button onPress={handleSubmit}>Save</Button>
+              <Button onPress={() => handleSubmit()}>Save</Button>
             </Button.Group>
           </Modal.Footer>
         </Modal.Content>
@@ -112,27 +111,22 @@ function getReviewInput({ initialRef }) {
     {
       name: 'name',
       label: 'Name',
-      type: 'text',
       ref: initialRef,
     },
     {
       name: 'message',
       label: 'Message',
-      type: 'text',
       multiline: true,
       maxHeight: 120,
     },
     {
       name: 'product',
       label: 'Product',
-      type: 'text',
     },
     {
       name: 'stars',
       label: 'Stars',
-      type: 'selection',
-      starSelection: true,
-      pressable: true,
+      pressableStars: true,
     },
   ];
 }
@@ -162,4 +156,4 @@ ReviewForm.propTypes = {
   getGBReviews: PropTypes.func,
 };
 
-export default connect()(ReviewForm);
+export default connect(null, reviewsActions)(ReviewForm);
