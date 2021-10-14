@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { Text, VStack, HStack, useTheme } from 'native-base';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import { meanBy, round } from 'lodash';
 import { getFormattedDate } from '~sharedComponents/appHelpers';
 import * as reviewsActions from '~actions/reviewsActions';
 import PropTypes from 'prop-types';
-import meanBy from 'lodash/meanBy';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ReviewForm from './ReviewForm';
 
@@ -21,6 +21,7 @@ function ReviewsRoute({ reviews, getGBReviews }) {
 
   return (
     // TODO add a filter by review rating & by date
+    // TODO add a delete btn if the user is the owner of the review
     <>
       <HStack style={styles.ratingContainer}>
         <Text>Rating: </Text>
@@ -75,8 +76,7 @@ function getStyles(theme) {
 }
 
 function getStarAverage({ reviews }) {
-  // TODO limit the decimal place to 2
-  return meanBy(reviews, 'stars');
+  return round(meanBy(reviews, 'stars'), 2);
 }
 
 function getRatingIconsFromAverage({ reviews, styles }) {
