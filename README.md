@@ -34,4 +34,5 @@ Android Sim:
 
 ## Future Enhancments:
 
-- stripe
+- stripe payment
+- checking out saves the order to the user's previous orders (update API)
