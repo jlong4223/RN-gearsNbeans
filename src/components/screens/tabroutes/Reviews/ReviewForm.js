@@ -10,11 +10,10 @@ import {
   useTheme,
 } from 'native-base';
 import * as reviewsActions from '~actions/reviewsActions';
-import { postReview } from '~services/gb-reviews';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ReviewForm({ getGBReviews }) {
+function ReviewForm({ createReview }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [starSelected, setStarSelected] = useState(0);
   const [reviewInfo, setReviewInfo] = useState({});
@@ -35,8 +34,7 @@ function ReviewForm({ getGBReviews }) {
   };
 
   const handleSubmit = async () => {
-    postReview(reviewInfo);
-    await getGBReviews();
+    await createReview(reviewInfo);
     resetAllState();
   };
 
@@ -44,7 +42,7 @@ function ReviewForm({ getGBReviews }) {
     <>
       <Modal
         isOpen={modalVisible}
-        onClose={() => setModalVisible(false)}
+        onClose={resetAllState}
         initialFocusRef={initialRef}>
         <Modal.Content>
           <Modal.CloseButton />
@@ -152,8 +150,9 @@ function getStyles({ theme }) {
     },
   };
 }
+
 ReviewForm.propTypes = {
-  getGBReviews: PropTypes.func,
+  createReview: PropTypes.func,
 };
 
 export default connect(null, reviewsActions)(ReviewForm);
