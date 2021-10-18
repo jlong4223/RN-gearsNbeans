@@ -2,27 +2,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '~actions/cartActions';
-import { Text, View, Button } from 'native-base';
+import { Text, View, Button, useColorModeValue } from 'native-base';
 import CartMessage from '~screens/Cart/CartMessage';
 import CheckoutBtn from '~screens/Cart/CheckoutBtn';
 import CartItems from '~screens/Cart/CartItems';
 function CartScreen({ cartItems, clearEntireCart }) {
   const { total, cart, itemCount } = cartItems;
   const styles = getStyles();
-  // console.log('cart: ', cart);
+  const btnColorScheme = useColorModeValue('primary', 'secondary');
 
   return (
     <>
       <CartMessage total={total} itemCount={itemCount} />
-      <CartItems cart={cart} />
+      <CartItems cart={cart} btnColorScheme={btnColorScheme} />
       {itemCount > 0 && (
         <>
           <View style={styles.btnContainer}>
-            <Button onPress={clearEntireCart} style={styles.clearBtn}>
+            <Button
+              onPress={clearEntireCart}
+              style={styles.clearBtn}
+              colorScheme={btnColorScheme}>
               <Text>Clear Entire Cart</Text>
             </Button>
           </View>
-          <CheckoutBtn total={total} />
+          <CheckoutBtn total={total} btnColorScheme={btnColorScheme} />
         </>
       )}
     </>
