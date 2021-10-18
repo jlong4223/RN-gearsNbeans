@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Button, Text } from 'native-base';
 
-export default function CheckoutBtn({ total }) {
+export default function CheckoutBtn({ total, btnColorScheme }) {
   const styles = getStyles();
 
   return (
     <View style={styles.btnContainer}>
-      <Button style={styles.checkoutBtn}>
+      <Button style={styles.checkoutBtn} colorScheme={btnColorScheme}>
         <Text>Checkout ${total}</Text>
       </Button>
     </View>
@@ -31,4 +31,5 @@ function getStyles() {
 
 CheckoutBtn.propTypes = {
   total: PropTypes.number,
+  btnColorScheme: PropTypes.string,
 };
