@@ -6,6 +6,7 @@ import { Text, HStack, VStack, Button, ScrollView } from 'native-base';
 function CartItems({
   cart,
   removeFromCart,
+  btnColorScheme,
   addQuantityToCartItem,
   removeQuantityFromCartItem,
 }) {
@@ -13,6 +14,12 @@ function CartItems({
 
   const removeItem = item =>
     removeItemFromCart({ item, removeFromCart, removeQuantityFromCartItem });
+
+  const cartBtns = getCartBtns({
+    btnColorScheme,
+    addQuantityToCartItem,
+    removeItem,
+  });
 
   return (
     <ScrollView>
@@ -29,14 +36,15 @@ function CartItems({
                 <Text>Count: {item.quantity}</Text>
               </VStack>
               <HStack>
-                <Button style={styles.qtyBtns} onPress={() => removeItem(item)}>
-                  -
-                </Button>
-                <Button
-                  onPress={() => addQuantityToCartItem(item)}
-                  style={styles.qtyBtns}>
-                  +
-                </Button>
+                {cartBtns.map(btn => (
+                  <Button
+                    key={btn.id}
+                    style={styles.qtyBtns}
+                    onPress={() => btn.onPress(item)}
+                    colorScheme={btnColorScheme}>
+                    {btn.btnSign}
+                  </Button>
+                ))}
               </HStack>
             </VStack>
           </HStack>
@@ -78,11 +86,29 @@ function removeItemFromCart({
 }) {
   item.quantity > 1 ? removeQuantityFromCartItem(item) : removeFromCart(item);
 }
+
+function getCartBtns({ btnColorScheme, removeItem, addQuantityToCartItem }) {
+  return [
+    {
+      id: 'removeBtn',
+      btnSign: '-',
+      colorScheme: btnColorScheme,
+      onPress: removeItem,
+    },
+    {
+      id: 'addBtn',
+      btnSign: '+',
+      colorScheme: btnColorScheme,
+      onPress: addQuantityToCartItem,
+    },
+  ];
+}
 CartItems.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeFromCart: PropTypes.func.isRequired,
   addQuantityToCartItem: PropTypes.func.isRequired,
   removeQuantityFromCartItem: PropTypes.func.isRequired,
+  btnColorScheme: PropTypes.string.isRequired,
 };
 
 export default connect(null, actions)(CartItems);
