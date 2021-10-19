@@ -72,6 +72,5 @@ ProductCard.propTypes = {
       image: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  getGBBikeServices: PropTypes.func.isRequired,
   addToCart: PropTypes.func.isRequired,
 };

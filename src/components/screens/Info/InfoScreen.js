@@ -1,10 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { ScrollView } from 'react-native';
 import InfoHours from '~screens/Info/InfoHours';
 import InfoAddress from '~screens/Info/InfoAddress';
 
-function InfoScreen() {
+export default function InfoScreen() {
   return (
     <ScrollView>
       <InfoHours />
@@ -13,5 +12,3 @@ function InfoScreen() {
     </ScrollView>
   );
 }
-
-export default connect()(InfoScreen);

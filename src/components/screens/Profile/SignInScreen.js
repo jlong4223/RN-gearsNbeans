@@ -8,10 +8,7 @@ import { loginFields } from '~sharedComponents/AuthForms/fields';
 function SignInScreen({ loginUser }) {
   const styles = getStyles();
 
-  const [userFieldValues, setUserFieldValues] = useState({
-    email: '',
-    password: '',
-  });
+  const [userFieldValues, setUserFieldValues] = useState({});
 
   const handleChange = (name, value) => {
     setUserFieldValues({ ...userFieldValues, [name]: value });
@@ -19,10 +16,8 @@ function SignInScreen({ loginUser }) {
 
   function handleSubmit() {
     loginUser(userFieldValues);
-    setUserFieldValues({
-      email: '',
-      password: '',
-    });
+    // TODO handle adding an error message if the user is not found
+    setUserFieldValues({});
   }
 
   function setLoginFields() {

@@ -5,6 +5,7 @@ import * as authActions from '~actions/authActions';
 import { goToSignIn } from '~app/navigation';
 import PropTypes from 'prop-types';
 function ProfileScreen({ userInfo, logoutUser }) {
+  // eslint-disable-next-line no-console
   console.log(userInfo);
   const styles = getStyles();
 

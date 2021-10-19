@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MapView from 'react-native-maps';
-import { connect } from 'react-redux';
 
-function Map({ coordinates }) {
+export default function Map({ coordinates }) {
   const styles = getStyles();
 
   return (
@@ -32,5 +31,3 @@ Map.propTypes = {
     longitudeDelta: PropTypes.number.isRequired,
   }).isRequired,
 };
-
-export default connect()(Map);

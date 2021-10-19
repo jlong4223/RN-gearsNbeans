@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabBar } from 'react-native-tab-view';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { useTheme } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export const HomeTabBar = tabViewProps => {
   const theme = useTheme();
