@@ -95,6 +95,8 @@ function ReviewForm({ createReview }) {
         </Modal.Content>
       </Modal>
       <Button
+        style={styles.reviewBtn}
+        colorScheme="secondary"
         onPress={() => {
           setModalVisible(!modalVisible);
         }}>
@@ -147,6 +149,9 @@ function getStyles({ theme }) {
     },
     starIcon: {
       color: theme.colors.reviewsIcon,
+    },
+    reviewBtn: {
+      borderRadius: 0,
     },
   };
 }
