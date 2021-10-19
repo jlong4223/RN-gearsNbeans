@@ -1,5 +1,15 @@
 // TODO import all actions here and export them
-import { getCartItems, addQuantityToCartItem } from '~actions/cartActions';
-import { getGBBikeServices } from '~actions/reviewsActions';
+import {
+  getCartItems,
+  addQuantityToCartItem,
+  addToCart,
+} from '~actions/cartActions';
+import { getGBBikeServices, getGBProducts } from '~actions/reviewsActions';
 
-export { getCartItems, getGBBikeServices, addQuantityToCartItem };
+export {
+  getCartItems,
+  getGBBikeServices,
+  addQuantityToCartItem,
+  addToCart,
+  getGBProducts,
+};
