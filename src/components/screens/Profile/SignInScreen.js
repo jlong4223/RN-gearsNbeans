@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Input, View, Button } from 'native-base';
+import { loginFields } from '~sharedComponents/AuthForms/fields';
 import * as authActions from '~actions/authActions';
 import PropTypes from 'prop-types';
-import { loginFields } from '~sharedComponents/AuthForms/fields';
 
 function SignInScreen({ loginUser }) {
   const styles = getStyles();
@@ -36,10 +36,14 @@ function SignInScreen({ loginUser }) {
 
   return (
     <View style={styles.container}>
-      {setLoginFields()}
-      <Button style={styles.btnAndInput} onPress={handleSubmit}>
-        Sign in
-      </Button>
+      <View style={styles.innerContainer}>
+        <View style={styles.btnContainer}>
+          {setLoginFields()}
+          <Button style={styles.btnAndInput} onPress={handleSubmit}>
+            Sign in
+          </Button>
+        </View>
+      </View>
     </View>
   );
 }
@@ -47,12 +51,21 @@ function SignInScreen({ loginUser }) {
 function getStyles() {
   return {
     container: {
-      flex: 0.3,
+      flex: 0.8,
+    },
+    innerContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      width: '100%',
+      height: '50%',
+    },
+    btnContainer: {
       justifyContent: 'space-around',
       alignItems: 'center',
+      width: '100%',
+      height: '30%',
     },
     btnAndInput: {
-      //   margin: 10,
       width: '60%',
     },
     inputFocus: {

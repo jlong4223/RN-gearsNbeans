@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, VStack, Text } from 'native-base';
-import * as authActions from '~actions/authActions';
+import { Button, VStack, Text, Box } from 'native-base';
 import { goToSignIn } from '~app/navigation';
+import * as authActions from '~actions/authActions';
 import PropTypes from 'prop-types';
 function ProfileScreen({ userInfo, logoutUser }) {
   // eslint-disable-next-line no-console
@@ -10,24 +10,24 @@ function ProfileScreen({ userInfo, logoutUser }) {
   const styles = getStyles();
 
   return (
-    <VStack style={styles.container}>
+    <VStack>
       {userInfo.user.user ? (
-        <>
+        <Box style={styles.profileContainer}>
           <Text>Hi, {userInfo.user.user.name}</Text>
           <VStack>
             <Text>Here is your profile info:</Text>
             <Text>{userInfo.user.user.email}</Text>
             <Button onPress={logoutUser}>Logout</Button>
           </VStack>
-        </>
+        </Box>
       ) : (
-        <>
+        <VStack style={styles.btnsContainer}>
           <Button onPress={goToSignIn} style={styles.btn}>
             Sign In
           </Button>
           {/* TODO add screen for registering */}
           <Button style={styles.btn}>Create an Account </Button>
-        </>
+        </VStack>
       )}
     </VStack>
   );
@@ -35,8 +35,15 @@ function ProfileScreen({ userInfo, logoutUser }) {
 
 function getStyles() {
   return {
-    container: {
-      flex: 0.8,
+    profileContainer: {
+      borderWidth: 1,
+      width: '100%',
+      padding: 10,
+      height: '100%',
+    },
+    btnsContainer: {
+      width: '100%',
+      height: '90%',
       justifyContent: 'center',
       alignItems: 'center',
     },
