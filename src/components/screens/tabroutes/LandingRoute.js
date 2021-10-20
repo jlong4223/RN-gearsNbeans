@@ -1,18 +1,13 @@
 import React from 'react';
 import { VStack, Text } from 'native-base';
 import { ScrollView } from 'react-native';
+import { getBusinessCoordinates } from '~sharedComponents/appHelpers';
 import GBLogo from '~sharedComponents/GBLogo';
 import Map from '~sharedComponents/Map';
 
-export default function InfoRoute() {
+export default function LandingRoute() {
   const styles = getStyles();
-
-  const businessCoordinates = {
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.015,
-    longitudeDelta: 0.0121,
-  };
+  const businessCoordinates = getBusinessCoordinates();
 
   return (
     <ScrollView>

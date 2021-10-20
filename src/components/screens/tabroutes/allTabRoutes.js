@@ -2,14 +2,14 @@ import { SceneMap } from 'react-native-tab-view';
 import BikeServicesRoute from './BikeServicesRoute';
 import CoffeeProductsRoute from './CoffeeProductsRoute';
 import ReviewsRoute from '~screens/tabroutes/Reviews/ReviewsRoute';
-import InfoRoute from '~screens/tabroutes/InfoRoute';
+import LandingRoute from '~screens/tabroutes/LandingRoute';
 
 export const allRoutes = [
   {
     name: 'Home',
-    component: InfoRoute,
+    component: LandingRoute,
     icon: 'home',
-    id: 'info',
+    id: 'landing',
   },
   {
     name: 'Bike',
@@ -32,7 +32,7 @@ export const allRoutes = [
 ];
 
 export const renderScreenScene = SceneMap({
-  info: InfoRoute,
+  landing: LandingRoute,
   services: BikeServicesRoute,
   coffeeProducts: CoffeeProductsRoute,
   reviews: ReviewsRoute,
