@@ -24,7 +24,6 @@ export const loginFields = [
 ];
 
 export const registerFields = [
-  ...loginFields,
   {
     label: 'First Name',
     name: 'firstName',
@@ -41,12 +40,5 @@ export const registerFields = [
       required: true,
     },
   },
-  {
-    label: 'Phone Number',
-    name: 'phoneNumber',
-    placeholder: 'Phone Number',
-    validation: {
-      required: true,
-    },
-  },
+  ...loginFields,
 ];
