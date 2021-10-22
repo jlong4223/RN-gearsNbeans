@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, VStack, Text, Box } from 'native-base';
-import { goToSignIn } from '~app/navigation';
+import { goToSignIn, goToRegister } from '~app/navigation';
 import * as authActions from '~actions/authActions';
 import PropTypes from 'prop-types';
 function ProfileScreen({ userInfo, logoutUser }) {
@@ -25,8 +25,9 @@ function ProfileScreen({ userInfo, logoutUser }) {
           <Button onPress={goToSignIn} style={styles.btn}>
             Sign In
           </Button>
-          {/* TODO add screen for registering */}
-          <Button style={styles.btn}>Create an Account </Button>
+          <Button style={styles.btn} onPress={goToRegister}>
+            Create an Account
+          </Button>
         </VStack>
       )}
     </VStack>
