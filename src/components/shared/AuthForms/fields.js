@@ -1,3 +1,6 @@
+import React from 'react';
+import { Input } from 'native-base';
+
 export const loginFields = [
   {
     name: 'email',
@@ -42,3 +45,30 @@ export const registerFields = [
   },
   ...loginFields,
 ];
+
+export function getInputFields(fieldType, styles, handleChange) {
+  switch (fieldType) {
+    case 'login':
+      return setFields(loginFields, styles, handleChange);
+
+    case 'register':
+      return setFields(registerFields, styles, handleChange);
+
+    default:
+      return [];
+  }
+}
+
+function setFields(fieldType, styles, handleChange) {
+  return fieldType.map(field => (
+    <Input
+      style={styles.btnAndInput}
+      key={field.name}
+      type={field.type}
+      _focus={styles.inputFocus}
+      isRequired={field.required}
+      placeholder={field.placeholder}
+      onChangeText={value => handleChange(field.name, value)}
+    />
+  ));
+}
