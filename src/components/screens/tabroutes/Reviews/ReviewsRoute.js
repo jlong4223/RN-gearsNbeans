@@ -26,7 +26,7 @@ function ReviewsRoute({ reviews, getGBReviews }) {
       <HStack style={styles.ratingContainer}>
         <Text>Rating: </Text>
         {ratingIcons}
-        <Text>({reviewsStarAverage})</Text>
+        <Text>{reviewsStarAverage}</Text>
       </HStack>
       <ScrollView>
         <VStack style={styles.container}>
@@ -76,7 +76,7 @@ function getStyles(theme) {
 }
 
 function getStarAverage({ reviews }) {
-  return round(meanBy(reviews, 'stars'), 2);
+  return round(meanBy(reviews, 'stars'), 2) || 'No reviews yet';
 }
 
 function getRatingIconsFromAverage({ reviews, styles }) {
