@@ -1,23 +1,11 @@
+import { dispatchError } from '~actions/actionHelpers';
+import { GET_REVIEWS, GET_PRODUCTS, GET_SERVICES } from '~redux/constants';
 import {
   getReviews,
   getProducts,
   getBikeServices,
   postReview,
 } from '~services/gb-reviews';
-
-import {
-  GET_REVIEWS,
-  GET_PRODUCTS,
-  GET_SERVICES,
-  GET_ERROR,
-} from '~redux/constants';
-
-const dispatchError = (dispatch, error) => {
-  dispatch({
-    type: GET_ERROR,
-    payload: error,
-  });
-};
 
 export const getGBReviews = () => {
   return async dispatch => {
