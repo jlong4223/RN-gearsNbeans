@@ -27,6 +27,27 @@ export function setBaseRoot() {
   });
 }
 
+// TODO test this and see if topBar options are necessary
+export function setProfileRoot() {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        id: NAVIGATION_STACKS.MAIN,
+        children: [
+          {
+            component: {
+              name: SCREEN_NAMES.PROFILE_SCREEN,
+              options: {
+                topBar: {},
+              },
+            },
+          },
+        ],
+      },
+    },
+  });
+}
+
 export function setRootHome() {
   setRoot({
     screenName: SCREEN_NAMES.HOME,
@@ -125,6 +146,21 @@ export function goToSignIn({ options } = {}) {
 
   pushScreen({
     componentName: SCREEN_NAMES.SIGN_IN_SCREEN,
+    options: combinedOptions,
+  });
+}
+
+export function goToRegister({ options } = {}) {
+  const combinedOptions = merge(options, {
+    topBar: {
+      title: {
+        text: 'Register',
+      },
+    },
+  });
+
+  pushScreen({
+    componentName: SCREEN_NAMES.REGISTER_SCREEN,
     options: combinedOptions,
   });
 }

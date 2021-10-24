@@ -4,6 +4,7 @@ const SCREEN_NAMES = {
   PROFILE_SCREEN: 'ProfileScreen',
   INFO_SCREEN: 'InfoScreen',
   SIGN_IN_SCREEN: 'SignInScreen',
+  REGISTER_SCREEN: 'RegisterScreen',
 };
 
 const NAVIGATION_STACKS = {

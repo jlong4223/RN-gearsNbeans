@@ -4,6 +4,7 @@ import CartScreen from '~screens/Cart/CartScreen';
 import ProfileScreen from '~screens/Profile/ProfileScreen';
 import InfoScreen from '~screens/Info/InfoScreen';
 import SignInScreen from '~screens/Profile/SignInScreen';
+import RegisterScreen from '~screens/Profile/RegisterScreen';
 
 export const screens = {
   homeScreen: {
@@ -25,6 +26,10 @@ export const screens = {
   signInScreen: {
     name: SCREEN_NAMES.SIGN_IN_SCREEN,
     component: SignInScreen,
+  },
+  registerScreen: {
+    name: SCREEN_NAMES.REGISTER_SCREEN,
+    component: RegisterScreen,
   },
 };
 
