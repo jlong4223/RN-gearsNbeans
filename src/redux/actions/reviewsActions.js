@@ -1,10 +1,16 @@
 import { dispatchError } from '~actions/actionHelpers';
-import { GET_REVIEWS, GET_PRODUCTS, GET_SERVICES } from '~redux/constants';
+import {
+  GET_REVIEWS,
+  GET_PRODUCTS,
+  GET_SERVICES,
+  DELETE_REVIEW,
+} from '~redux/constants';
 import {
   getReviews,
   getProducts,
   getBikeServices,
   postReview,
+  deleteReview,
 } from '~services/gb-reviews';
 
 export const getGBReviews = () => {
@@ -29,6 +35,21 @@ export const createReview = review => {
         dispatch({
           type: GET_REVIEWS,
           payload: res.data,
+        });
+      })
+      .catch(error => {
+        dispatchError(dispatch, error);
+      });
+  };
+};
+
+export const deleteUsersReview = id => {
+  return async dispatch => {
+    await deleteReview(id)
+      .then(res => {
+        dispatch({
+          type: DELETE_REVIEW,
+          payload: id,
         });
       })
       .catch(error => {

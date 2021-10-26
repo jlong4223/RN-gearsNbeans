@@ -18,3 +18,7 @@ export const getBikeServices = async () => {
 export const postReview = review => {
   return gbApi.post('/reviews', review);
 };
+
+export const deleteReview = reviewId => {
+  return gbApi.delete(`/reviews/${reviewId}`);
+};
