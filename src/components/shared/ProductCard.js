@@ -23,6 +23,7 @@ export default function ProductCard({ products, addToCart }) {
 
   const addToCartHandler = item => {
     addToCart(item);
+    // TODO look into dark mode color scheme
     toast.show({
       title: 'Added to cart',
       status: 'success',
