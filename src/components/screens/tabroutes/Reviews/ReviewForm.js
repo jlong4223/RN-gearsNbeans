@@ -13,7 +13,7 @@ import * as reviewsActions from '~actions/reviewsActions';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ReviewForm({ createReview }) {
+function ReviewForm({ createReview, userId }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [starSelected, setStarSelected] = useState(0);
   const [reviewInfo, setReviewInfo] = useState({});
@@ -34,7 +34,7 @@ function ReviewForm({ createReview }) {
   };
 
   const handleSubmit = async () => {
-    await createReview(reviewInfo);
+    await createReview({ createdBy: userId, ...reviewInfo });
     resetAllState();
   };
 
@@ -158,6 +158,13 @@ function getStyles({ theme }) {
 
 ReviewForm.propTypes = {
   createReview: PropTypes.func,
+  userId: PropTypes.string,
 };
 
-export default connect(null, reviewsActions)(ReviewForm);
+function mapStateToProps(state) {
+  return {
+    userId: state.userData && state.userData.user.user._id,
+  };
+}
+
+export default connect(mapStateToProps, reviewsActions)(ReviewForm);
