@@ -3,6 +3,7 @@ import { SCREEN_NAMES, NAVIGATION_STACKS } from '~app/appConstants';
 import truncate from 'lodash/truncate';
 import merge from 'lodash/merge';
 
+// TODO: look into back arrow colors
 export function setBaseRoot() {
   Navigation.setRoot({
     root: {
