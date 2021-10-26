@@ -1,6 +1,7 @@
-import { LOGIN_USER, LOGOUT_USER, GET_ERROR } from '~redux/constants';
-import { login } from '~services/gb-auth';
+import { LOGIN_USER, LOGOUT_USER } from '~redux/constants';
+import { login, register } from '~services/gb-auth';
 import { setBaseRoot } from '~app/navigation';
+import { dispatchError } from '~actions/actionHelpers';
 import {
   setToken,
   getEntireUserFromToken,
@@ -9,7 +10,9 @@ import {
 
 export const loginUser = userDetails => {
   return async dispatch => {
-    const response = await login(userDetails);
+    const response = await login(userDetails).catch(err => {
+      dispatchError(dispatch, err);
+    });
 
     if (response.status === 200) {
       const { token } = response.data;
@@ -24,11 +27,28 @@ export const loginUser = userDetails => {
         payload: userDataFromToken,
       });
     }
+  };
+};
 
-    dispatch({
-      type: GET_ERROR,
-      payload: response.data.message,
+export const registerUser = userDetails => {
+  return async dispatch => {
+    const response = await register(userDetails).catch(err => {
+      dispatchError(dispatch, err);
     });
+
+    if (response.status === 200) {
+      const { token } = response.data;
+
+      await setToken(token);
+      const userDataFromToken = await getEntireUserFromToken();
+
+      setBaseRoot();
+
+      dispatch({
+        type: LOGIN_USER,
+        payload: userDataFromToken,
+      });
+    }
   };
 };
 
