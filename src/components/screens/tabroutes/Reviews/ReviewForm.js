@@ -1,5 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { createReview } from '~actions/reviewsActions';
+import { get } from 'lodash';
+import PropTypes from 'prop-types';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   Button,
   FormControl,
@@ -9,18 +13,17 @@ import {
   Pressable,
   useTheme,
 } from 'native-base';
-import * as reviewsActions from '~actions/reviewsActions';
-import PropTypes from 'prop-types';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
-function ReviewForm({ createReview, userId }) {
+export default function ReviewForm() {
   const [modalVisible, setModalVisible] = useState(false);
   const [starSelected, setStarSelected] = useState(0);
   const [reviewInfo, setReviewInfo] = useState({});
   const initialRef = useRef(null);
   const theme = useTheme();
+  const dispatch = useDispatch();
   const styles = getStyles({ theme });
   const starSelection = [...Array(5).keys()];
+  const userId = useSelector(state => get(state, 'userData.user.user._id', ''));
 
   const handleChange = (name, value) =>
     handleInputChange(name, value, setReviewInfo, reviewInfo, setStarSelected);
@@ -34,7 +37,7 @@ function ReviewForm({ createReview, userId }) {
   };
 
   const handleSubmit = async () => {
-    await createReview({ createdBy: userId, ...reviewInfo });
+    await dispatch(createReview({ createdBy: userId, ...reviewInfo }));
     resetAllState();
   };
 
@@ -160,11 +163,3 @@ ReviewForm.propTypes = {
   createReview: PropTypes.func,
   userId: PropTypes.string,
 };
-
-function mapStateToProps(state) {
-  return {
-    userId: state.userData && state.userData.user.user._id,
-  };
-}
-
-export default connect(mapStateToProps, reviewsActions)(ReviewForm);
