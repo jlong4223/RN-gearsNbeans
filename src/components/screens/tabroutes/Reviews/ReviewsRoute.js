@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Text, VStack, HStack, useTheme } from 'native-base';
+import { Text, VStack, HStack, Pressable, useTheme } from 'native-base';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { meanBy, round } from 'lodash';
@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ReviewForm from './ReviewForm';
 
-function ReviewsRoute({ reviews, getGBReviews }) {
+function ReviewsRoute({ reviews, getGBReviews, userId, deleteUsersReview }) {
   const theme = useTheme();
   const styles = getStyles(theme);
   const reviewsStarAverage = getStarAverage({ reviews });
@@ -21,7 +21,6 @@ function ReviewsRoute({ reviews, getGBReviews }) {
 
   return (
     // TODO add a filter by review rating & by date
-    // TODO add a delete btn if the user is the owner of the review
     <>
       <HStack style={styles.ratingContainer}>
         <Text>Rating: </Text>
@@ -38,7 +37,11 @@ function ReviewsRoute({ reviews, getGBReviews }) {
               </HStack>
               <Text>- {review.name}</Text>
               <Text>{review.message}</Text>
-              <Text>{getFormattedDate(review.createdAt)}</Text>
+              <HStack style={styles.actionBtns}>
+                <Text>{getFormattedDate(review.createdAt)}</Text>
+                {getDeleteBtn({ userId, review, deleteUsersReview })}
+                {getEditBtn({ userId, review, deleteUsersReview })}
+              </HStack>
             </VStack>
           ))}
         </VStack>
@@ -72,6 +75,9 @@ function getStyles(theme) {
       alignItems: 'center',
       height: 40,
     },
+    actionBtns: {
+      justifyContent: 'space-between',
+    },
   };
 }
 
@@ -101,14 +107,41 @@ function getStarsFromOneRating(review) {
   return stars.map((r, i) => <Icon key={i} name="star" />);
 }
 
+function getDeleteBtn({ userId, review, deleteUsersReview }) {
+  return (
+    userId === review.createdBy && (
+      <Pressable onPress={() => deleteUsersReview(review._id)}>
+        <Text>Delete</Text>
+      </Pressable>
+    )
+  );
+}
+
+// TODO finish this
+function getEditBtn({ userId, review }) {
+  return (
+    userId === review.createdBy && (
+      <Pressable onPress={() => console.log('edited')}>
+        <Text>Edit</Text>
+      </Pressable>
+    )
+  );
+}
+
 ReviewsRoute.propTypes = {
   getGBReviews: PropTypes.func.isRequired,
   reviews: PropTypes.array,
+  userId: PropTypes.string,
+  deleteUsersReview: PropTypes.func,
 };
 
 const mapStateToProps = state => {
   return {
     reviews: state.reviews.reviews,
+    userId:
+      Object.keys(state.userData.user).length !== 0
+        ? state.userData.user.user._id
+        : '',
   };
 };
 

@@ -5,31 +5,31 @@ import { getInputFields } from '~sharedComponents/AuthForms/fields';
 import * as authActions from '~actions/authActions';
 import PropTypes from 'prop-types';
 
-function SignInScreen({ loginUser }) {
-  const styles = getStyles();
+function RegisterScreen({ error, registerUser }) {
+  console.log('userData in register screen, ', error);
 
   const [userFieldValues, setUserFieldValues] = useState({});
+  const styles = getStyles();
 
   const handleChange = (name, value) => {
     setUserFieldValues({ ...userFieldValues, [name]: value });
   };
 
   function handleSubmit() {
-    loginUser(userFieldValues);
+    registerUser(userFieldValues);
     // TODO handle adding an error message if the user is not found
     setUserFieldValues({});
   }
 
-  const loginUserFields = getInputFields('login', styles, handleChange);
+  const registerUserFields = getInputFields('register', styles, handleChange);
 
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.btnContainer}>
-          {/* {setLoginFields()} */}
-          {loginUserFields}
+          {registerUserFields}
           <Button style={styles.btnAndInput} onPress={handleSubmit}>
-            Sign in
+            Sign up
           </Button>
         </View>
       </View>
@@ -46,25 +46,31 @@ function getStyles() {
       flex: 1,
       justifyContent: 'center',
       width: '100%',
-      height: '50%',
     },
     btnContainer: {
       justifyContent: 'space-around',
       alignItems: 'center',
       width: '100%',
-      height: '30%',
+      height: '60%',
     },
     btnAndInput: {
-      width: '60%',
+      width: '70%',
     },
     inputFocus: {
-      width: '60%',
+      width: '70%',
     },
   };
 }
 
-SignInScreen.propTypes = {
-  loginUser: PropTypes.func.isRequired,
+RegisterScreen.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  error: PropTypes.any,
 };
 
-export default connect(null, authActions)(SignInScreen);
+function mapStateToProps(state) {
+  return {
+    error: state.userData,
+  };
+}
+
+export default connect(mapStateToProps, authActions)(RegisterScreen);
