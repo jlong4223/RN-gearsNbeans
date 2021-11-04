@@ -1,4 +1,9 @@
-import { GET_REVIEWS, GET_ERROR, DELETE_REVIEW } from '~redux/constants';
+import {
+  GET_REVIEWS,
+  GET_ERROR,
+  DELETE_REVIEW,
+  UPDATE_REVIEW,
+} from '~redux/constants';
 
 const initialState = {
   reviews: [],
@@ -22,7 +27,13 @@ export function reviewReducer(state = initialState, action) {
         ...state,
         reviews: state.reviews.filter(review => review._id !== action.payload),
       };
-    //   TODO will need an add, edit, and delete review case
+    case UPDATE_REVIEW:
+      return {
+        ...state,
+        reviews: state.reviews.map(review =>
+          review._id === action.payload._id ? action.payload : review,
+        ),
+      };
     default:
       return state;
   }

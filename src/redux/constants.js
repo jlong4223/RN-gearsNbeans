@@ -8,6 +8,7 @@ export const GET_REVIEWS = 'GET_REVIEWS';
 export const DELETE_REVIEW = 'DELETE_REVIEW';
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const GET_SERVICES = 'GET_SERVICES';
+export const UPDATE_REVIEW = 'UPDATE_REVIEW';
 
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';

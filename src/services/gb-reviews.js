@@ -19,10 +19,11 @@ export const postReview = review => {
   return gbApi.post('/reviews', review);
 };
 
+// TODO add a header that sends the user's token for authentication (edit & delete)
 export const deleteReview = reviewId => {
   return gbApi.delete(`/reviews/${reviewId}`);
 };
 
 export const updateReview = reviewObj => {
-  return gbApi.patch(`/reviews/${reviewObj.id}`, reviewObj);
+  return gbApi.patch(`/reviews/${reviewObj._id}`, reviewObj);
 };

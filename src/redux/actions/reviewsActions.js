@@ -4,6 +4,7 @@ import {
   GET_PRODUCTS,
   GET_SERVICES,
   DELETE_REVIEW,
+  UPDATE_REVIEW,
 } from '~redux/constants';
 import {
   getReviews,
@@ -11,6 +12,7 @@ import {
   getBikeServices,
   postReview,
   deleteReview,
+  updateReview,
 } from '~services/gb-reviews';
 
 export const getGBReviews = () => {
@@ -80,6 +82,21 @@ export const getGBBikeServices = () => {
         dispatch({
           type: GET_SERVICES,
           payload: products.data,
+        });
+      })
+      .catch(error => {
+        dispatchError(dispatch, error);
+      });
+  };
+};
+
+export const updateReviewObj = review => {
+  return async dispatch => {
+    await updateReview(review)
+      .then(res => {
+        dispatch({
+          type: UPDATE_REVIEW,
+          payload: res.data,
         });
       })
       .catch(error => {
