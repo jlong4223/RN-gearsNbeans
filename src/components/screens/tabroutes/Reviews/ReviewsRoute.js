@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Text, VStack, HStack, Pressable, useTheme } from 'native-base';
+import { Text, VStack, HStack, useTheme, Button } from 'native-base';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { meanBy, round } from 'lodash';
+import { meanBy, round, get } from 'lodash';
 import { getFormattedDate } from '~sharedComponents/appHelpers';
 import * as reviewsActions from '~actions/reviewsActions';
 import PropTypes from 'prop-types';
@@ -46,6 +46,7 @@ function ReviewsRoute({ reviews, getGBReviews, userId, deleteUsersReview }) {
           ))}
         </VStack>
       </ScrollView>
+      {/* TODO when a person who is not logged in clicks the Add Review BTN, push them to login screen */}
       <ReviewForm />
     </>
   );
@@ -110,27 +111,26 @@ function getStarsFromOneRating(review) {
 function getDeleteBtn({ userId, review, deleteUsersReview }) {
   return (
     userId === review.createdBy && (
-      <Pressable onPress={() => deleteUsersReview(review._id)}>
-        <Text>Delete</Text>
-      </Pressable>
+      <Button
+        colorScheme="secondary"
+        onPress={() => deleteUsersReview(review._id)}>
+        Delete
+      </Button>
     )
   );
 }
 
-// TODO finish this
 function getEditBtn({ userId, review }) {
   return (
     userId === review.createdBy && (
-      <Pressable onPress={() => console.log('edited')}>
-        <Text>Edit</Text>
-      </Pressable>
+      <ReviewForm isEditMode={true} inputValues={review} />
     )
   );
 }
 
 ReviewsRoute.propTypes = {
   getGBReviews: PropTypes.func.isRequired,
-  reviews: PropTypes.array,
+  reviews: PropTypes.arrayOf(PropTypes.object),
   userId: PropTypes.string,
   deleteUsersReview: PropTypes.func,
 };
@@ -138,10 +138,7 @@ ReviewsRoute.propTypes = {
 const mapStateToProps = state => {
   return {
     reviews: state.reviews.reviews,
-    userId:
-      Object.keys(state.userData.user).length !== 0
-        ? state.userData.user.user._id
-        : '',
+    userId: get(state, 'userData.user.user._id', ''),
   };
 };
 

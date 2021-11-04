@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createReview } from '~actions/reviewsActions';
+import { createReview, updateReviewObj } from '~actions/reviewsActions';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -14,16 +14,18 @@ import {
   useTheme,
 } from 'native-base';
 
-export default function ReviewForm() {
+export default function ReviewForm({ isEditMode, inputValues }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [starSelected, setStarSelected] = useState(0);
   const [reviewInfo, setReviewInfo] = useState({});
   const initialRef = useRef(null);
   const theme = useTheme();
   const dispatch = useDispatch();
-  const styles = getStyles({ theme });
+  const styles = getStyles({ theme, isEditMode });
   const starSelection = [...Array(5).keys()];
   const userId = useSelector(state => get(state, 'userData.user.user._id', ''));
+  const modalHeader = isEditMode ? 'Edit Your Review' : 'Create a Review';
+  const btnText = isEditMode ? 'Edit' : 'Add Review';
 
   const handleChange = (name, value) =>
     handleInputChange(name, value, setReviewInfo, reviewInfo, setStarSelected);
@@ -32,14 +34,31 @@ export default function ReviewForm() {
 
   const resetAllState = () => {
     setModalVisible(false);
-    setStarSelected(0);
-    setReviewInfo({});
+
+    if (!inputValues) {
+      setStarSelected(0);
+      setReviewInfo({});
+    }
   };
 
   const handleSubmit = async () => {
-    await dispatch(createReview({ createdBy: userId, ...reviewInfo }));
-    resetAllState();
+    if (isEditMode) {
+      await dispatch(updateReviewObj(reviewInfo));
+      resetAllState();
+    }
+
+    if (!isEditMode) {
+      await dispatch(createReview({ createdBy: userId, ...reviewInfo }));
+      resetAllState();
+    }
   };
+
+  useEffect(() => {
+    if (inputValues) {
+      setReviewInfo(inputValues);
+      setStarSelected(inputValues.stars);
+    }
+  }, [inputValues]);
 
   return (
     <>
@@ -49,7 +68,7 @@ export default function ReviewForm() {
         initialFocusRef={initialRef}>
         <Modal.Content>
           <Modal.CloseButton />
-          <Modal.Header>Create a Review</Modal.Header>
+          <Modal.Header>{modalHeader}</Modal.Header>
           <Modal.Body>
             {reviewInput.map(
               ({ name, label, ref, pressableStars, maxHeight, multiline }) => (
@@ -61,6 +80,7 @@ export default function ReviewForm() {
                       onChangeText={value => handleChange(name, value)}
                       multiline={multiline}
                       maxHeight={maxHeight}
+                      value={reviewInfo[name]}
                     />
                   )}
                   {pressableStars && (
@@ -103,7 +123,7 @@ export default function ReviewForm() {
         onPress={() => {
           setModalVisible(!modalVisible);
         }}>
-        Add Review
+        {btnText}
       </Button>
     </>
   );
@@ -145,7 +165,7 @@ function handleInputChange(
   name === 'stars' ? setStarSelected(value) && setReview : setReview;
 }
 
-function getStyles({ theme }) {
+function getStyles({ theme, isEditMode }) {
   return {
     starSelection: {
       justifyContent: 'space-around',
@@ -154,7 +174,7 @@ function getStyles({ theme }) {
       color: theme.colors.reviewsIcon,
     },
     reviewBtn: {
-      borderRadius: 0,
+      borderRadius: isEditMode ? 5 : 0,
     },
   };
 }
@@ -162,4 +182,6 @@ function getStyles({ theme }) {
 ReviewForm.propTypes = {
   createReview: PropTypes.func,
   userId: PropTypes.string,
+  inputValues: PropTypes.object,
+  isEditMode: PropTypes.bool,
 };
