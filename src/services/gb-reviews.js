@@ -22,3 +22,7 @@ export const postReview = review => {
 export const deleteReview = reviewId => {
   return gbApi.delete(`/reviews/${reviewId}`);
 };
+
+export const updateReview = reviewObj => {
+  return gbApi.patch(`/reviews/${reviewObj.id}`, reviewObj);
+};
