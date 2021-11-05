@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createReview, updateReviewObj } from '~actions/reviewsActions';
+import { goToSignIn } from '~app/navigation';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,6 +27,7 @@ export default function ReviewForm({ isEditMode, inputValues }) {
   const userId = useSelector(state => get(state, 'userData.user.user._id', ''));
   const modalHeader = isEditMode ? 'Edit Your Review' : 'Create a Review';
   const btnText = isEditMode ? 'Edit' : 'Add Review';
+  const checkForUserId = () => (!userId ? goToSignIn() : setModalVisible(true));
 
   const handleChange = (name, value) =>
     handleInputChange(name, value, setReviewInfo, reviewInfo, setStarSelected);
@@ -120,9 +122,7 @@ export default function ReviewForm({ isEditMode, inputValues }) {
       <Button
         style={styles.reviewBtn}
         colorScheme="secondary"
-        onPress={() => {
-          setModalVisible(!modalVisible);
-        }}>
+        onPress={checkForUserId}>
         {btnText}
       </Button>
     </>

@@ -46,7 +46,6 @@ function ReviewsRoute({ reviews, getGBReviews, userId, deleteUsersReview }) {
           ))}
         </VStack>
       </ScrollView>
-      {/* TODO when a person who is not logged in clicks the Add Review BTN, push them to login screen */}
       <ReviewForm />
     </>
   );
