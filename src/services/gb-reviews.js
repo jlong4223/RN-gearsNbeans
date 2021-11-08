@@ -1,4 +1,5 @@
 import gbApi from '~services/gb-api';
+import { getAuthTokenHeader } from '~services/auth-token';
 
 export const getReviews = async () => {
   const reviews = await gbApi.get('/reviews');
@@ -15,15 +16,20 @@ export const getBikeServices = async () => {
   return services;
 };
 
-export const postReview = review => {
-  return gbApi.post('/reviews', review);
+export const postReview = async review => {
+  return gbApi.post('/reviews', review, {
+    headers: await getAuthTokenHeader(),
+  });
 };
 
-// TODO add a header that sends the user's token for authentication (edit & delete)
-export const deleteReview = reviewId => {
-  return gbApi.delete(`/reviews/${reviewId}`);
+export const deleteReview = async reviewId => {
+  return gbApi.delete(`/reviews/${reviewId}`, {
+    headers: await getAuthTokenHeader(),
+  });
 };
 
-export const updateReview = reviewObj => {
-  return gbApi.patch(`/reviews/${reviewObj._id}`, reviewObj);
+export const updateReview = async reviewObj => {
+  return gbApi.patch(`/reviews/${reviewObj._id}`, reviewObj, {
+    headers: await getAuthTokenHeader(),
+  });
 };

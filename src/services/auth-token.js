@@ -17,8 +17,11 @@ export const removeAuthToken = async () => {
 export const getEntireUserFromToken = async () => {
   const token = await getToken();
   if (token) {
-    // console.log('token in get entire user: ', token);
     const decoded = jwt_decode(token);
     return decoded;
   }
 };
+
+export async function getAuthTokenHeader() {
+  return { Authorization: `Bearer ${await getToken()}` };
+}
