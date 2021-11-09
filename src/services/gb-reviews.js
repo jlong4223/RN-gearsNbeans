@@ -22,8 +22,9 @@ export const postReview = async review => {
   });
 };
 
-export const deleteReview = async reviewId => {
-  return gbApi.delete(`/reviews/${reviewId}`, {
+export const deleteReview = async review => {
+  return gbApi.delete(`/reviews/${review._id}`, {
+    data: review,
     headers: await getAuthTokenHeader(),
   });
 };
