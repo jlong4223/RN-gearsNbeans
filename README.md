@@ -8,7 +8,7 @@ Versions:
 
 - node: v16.0.0
 - ruby: 3.0.0
-- xcode: 12.4
+- xcode: 13.1
 - gradle: 6.7
 
 iOS Sim:
@@ -36,6 +36,5 @@ Android Sim:
 
 - stripe payment
 - checking out saves the order to the user's previous orders (update API)
-- update api to save user id or email to the review being created so additional actions like delete/edit can happen
 - Setup splash screen
 - convert all connect to useDispatch & useSelector hooks
