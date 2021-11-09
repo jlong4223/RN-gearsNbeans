@@ -45,13 +45,13 @@ export const createReview = review => {
   };
 };
 
-export const deleteUsersReview = id => {
+export const deleteUsersReview = review => {
   return async dispatch => {
-    await deleteReview(id)
+    await deleteReview(review)
       .then(res => {
         dispatch({
           type: DELETE_REVIEW,
-          payload: id,
+          payload: review._id,
         });
       })
       .catch(error => {
@@ -59,6 +59,20 @@ export const deleteUsersReview = id => {
       });
   };
 };
+// export const deleteUsersReview = id => {
+//   return async dispatch => {
+//     await deleteReview(id)
+//       .then(res => {
+//         dispatch({
+//           type: DELETE_REVIEW,
+//           payload: id,
+//         });
+//       })
+//       .catch(error => {
+//         dispatchError(dispatch, error);
+//       });
+//   };
+// };
 
 export const getGBProducts = () => {
   return async dispatch => {

@@ -110,9 +110,7 @@ function getStarsFromOneRating(review) {
 function getDeleteBtn({ userId, review, deleteUsersReview }) {
   return (
     userId === review.createdBy && (
-      <Button
-        colorScheme="secondary"
-        onPress={() => deleteUsersReview(review._id)}>
+      <Button colorScheme="secondary" onPress={() => deleteUsersReview(review)}>
         Delete
       </Button>
     )
