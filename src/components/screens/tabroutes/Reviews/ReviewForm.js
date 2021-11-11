@@ -174,7 +174,8 @@ function getStyles({ theme, isEditMode }) {
       color: theme.colors.reviewsIcon,
     },
     reviewBtn: {
-      borderRadius: isEditMode ? 5 : 0,
+      borderRadius: 5,
+      width: !isEditMode ? '45%' : 'auto',
     },
   };
 }
