@@ -8,6 +8,7 @@ import * as reviewsActions from '~actions/reviewsActions';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ReviewForm from './ReviewForm';
+import FilterForm from './FilterForm';
 
 function ReviewsRoute({ reviews, getGBReviews, userId, deleteUsersReview }) {
   const theme = useTheme();
@@ -46,7 +47,10 @@ function ReviewsRoute({ reviews, getGBReviews, userId, deleteUsersReview }) {
           ))}
         </VStack>
       </ScrollView>
-      <ReviewForm />
+      <HStack style={styles.btnContainer}>
+        <ReviewForm />
+        <FilterForm userId={userId} />
+      </HStack>
     </>
   );
 }
@@ -77,6 +81,14 @@ function getStyles(theme) {
     },
     actionBtns: {
       justifyContent: 'space-between',
+    },
+    btnContainer: {
+      justifyContent: 'space-around',
+      padding: 5,
+      // alignItems: 'center',
+    },
+    filterBtn: {
+      width: '45%',
     },
   };
 }
