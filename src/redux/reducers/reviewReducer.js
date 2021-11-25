@@ -3,6 +3,7 @@ import {
   GET_ERROR,
   DELETE_REVIEW,
   UPDATE_REVIEW,
+  FILTER_BY_USER,
 } from '~redux/constants';
 
 const initialState = {
@@ -32,6 +33,13 @@ export function reviewReducer(state = initialState, action) {
         ...state,
         reviews: state.reviews.map(review =>
           review._id === action.payload._id ? action.payload : review,
+        ),
+      };
+    case FILTER_BY_USER:
+      return {
+        ...state,
+        reviews: state.reviews.filter(
+          review => review.createdBy === action.payload,
         ),
       };
     default:
