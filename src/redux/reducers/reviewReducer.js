@@ -42,6 +42,11 @@ export function reviewReducer(state = initialState, action) {
           review => review.createdBy === action.payload,
         ),
       };
+    case 'FILTER_BY_STAR':
+      return {
+        ...state,
+        reviews: action.payload,
+      };
     default:
       return state;
   }
