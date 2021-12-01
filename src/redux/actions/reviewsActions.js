@@ -21,7 +21,8 @@ export const getGBReviews = () => {
       .then(reviews => {
         dispatch({
           type: GET_REVIEWS,
-          payload: reviews.data,
+          // payload: reviews.data.reverse(),
+          payload: reviews,
         });
       })
       .catch(error => {
@@ -36,7 +37,7 @@ export const createReview = review => {
       .then(res => {
         dispatch({
           type: GET_REVIEWS,
-          payload: res.data,
+          payload: res.data.reverse(),
         });
       })
       .catch(error => {
@@ -59,20 +60,6 @@ export const deleteUsersReview = review => {
       });
   };
 };
-// export const deleteUsersReview = id => {
-//   return async dispatch => {
-//     await deleteReview(id)
-//       .then(res => {
-//         dispatch({
-//           type: DELETE_REVIEW,
-//           payload: id,
-//         });
-//       })
-//       .catch(error => {
-//         dispatchError(dispatch, error);
-//       });
-//   };
-// };
 
 export const getGBProducts = () => {
   return async dispatch => {
@@ -117,4 +104,34 @@ export const updateReviewObj = review => {
         dispatchError(dispatch, error);
       });
   };
+};
+
+export const filterReviews = ({ filter, num = 0 }) => {
+  switch (filter) {
+    // TODO these may require updating the item object on the backend to include something like itemType: 'product || itemType: 1 (1=product, 2=service) bc the items are not stored with any distinction
+    case 'product':
+      return {
+        type: 'FILTER_BY_PRODUCT',
+      };
+    case 'service':
+      return {
+        type: 'FILTER_BY_SERVICE',
+      };
+    case 'num':
+      return async dispatch => {
+        const filteredStarReviews = await getReviews().then(reviews => {
+          return reviews.filter(review => review.stars === num);
+        });
+
+        dispatch({
+          type: 'FILTER_BY_STAR',
+          payload: filteredStarReviews,
+        });
+      };
+
+    default:
+      return {
+        type: 'FILTER_BY_ALL',
+      };
+  }
 };

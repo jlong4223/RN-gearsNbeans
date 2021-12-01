@@ -3,7 +3,7 @@ import { getAuthTokenHeader } from '~services/auth-token';
 
 export const getReviews = async () => {
   const reviews = await gbApi.get('/reviews');
-  return reviews;
+  return reviews.data.reverse();
 };
 
 export const getProducts = async () => {
