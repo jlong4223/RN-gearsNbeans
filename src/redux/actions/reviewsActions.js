@@ -21,7 +21,8 @@ export const getGBReviews = () => {
       .then(reviews => {
         dispatch({
           type: GET_REVIEWS,
-          payload: reviews.data.reverse(),
+          // payload: reviews.data.reverse(),
+          payload: reviews,
         });
       })
       .catch(error => {
@@ -105,21 +106,11 @@ export const updateReviewObj = review => {
   };
 };
 
-export const filterReviews = ({ filter }) => {
+export const filterReviews = ({ filter, num = 0 }) => {
+  console.log('filterReviews', filter, num);
   switch (filter) {
-    case 'user':
-      return async (dispatch, getState) => {
-        const { userData } = getState();
-        const { _id } = userData.user.user;
-
-        dispatch({
-          type: 'FILTER_BY_USER',
-          payload: _id,
-        });
-      };
     // TODO these may require updating the item object on the backend to include something like itemType: 'product || itemType: 1 (1=product, 2=service) bc the items are not stored with any distinction
     case 'product':
-      console.log('product action &*&*&*&*&8');
       return {
         type: 'FILTER_BY_PRODUCT',
       };
@@ -127,27 +118,18 @@ export const filterReviews = ({ filter }) => {
       return {
         type: 'FILTER_BY_SERVICE',
       };
-    // Turning these off should react similar to canceling the filter - should limit the user to only filtering by one star lengh (cant show 5 and 4 star reviews? amazon does "filter by 5 star only ex" )
-    case '5-star':
-      return {
-        type: 'FILTER_BY_5_STAR',
+    case 'num':
+      return async dispatch => {
+        const filteredStarReviews = await getReviews().then(reviews => {
+          return reviews.filter(review => review.stars === num);
+        });
+
+        dispatch({
+          type: 'FILTER_BY_STAR',
+          payload: filteredStarReviews,
+        });
       };
-    case '4-star':
-      return {
-        type: 'FILTER_BY_4_STAR',
-      };
-    case '3-star':
-      return {
-        type: 'FILTER_BY_3_STAR',
-      };
-    case '2-star':
-      return {
-        type: 'FILTER_BY_2_STAR',
-      };
-    case '1-star':
-      return {
-        type: 'FILTER_BY_1_STAR',
-      };
+
     default:
       return {
         type: 'FILTER_BY_ALL',
