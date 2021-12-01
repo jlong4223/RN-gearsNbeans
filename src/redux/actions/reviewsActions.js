@@ -107,7 +107,6 @@ export const updateReviewObj = review => {
 };
 
 export const filterReviews = ({ filter, num = 0 }) => {
-  console.log('filterReviews', filter, num);
   switch (filter) {
     // TODO these may require updating the item object on the backend to include something like itemType: 'product || itemType: 1 (1=product, 2=service) bc the items are not stored with any distinction
     case 'product':
