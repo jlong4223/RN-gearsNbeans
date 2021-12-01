@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, Text, Switch, HStack } from 'native-base';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { filterReviews, getGBReviews } from '~actions/reviewsActions';
 import PropTypes from 'prop-types';
 
@@ -11,55 +11,31 @@ export default function FilterForm({ userId }) {
   const styles = getStyles();
 
   const handleFilterSelection = async (filter, num) => {
-    console.log('handleFilterSelection', filter, num);
-
-    if (num) {
+    if (toggleChecked[`${filter}_${num}`]) {
       setToggleChecked({
         ...toggleChecked,
-        [`${filter}_${num}`]: !toggleChecked[`${filter}_${num}`],
-        user: false,
+        [`${filter}_${num}`]: false,
       });
+      setShowModal(false);
+      return dispatch(getGBReviews());
+    }
 
-      Object.keys(toggleChecked).forEach(key => {
-        if (toggleChecked[key] && key !== `${filter}_${num}`) {
-          setToggleChecked({
-            ...toggleChecked,
-            [key]: false,
-            user: false,
-            [`${filter}_${num}`]: true,
-          });
-        }
-      });
+    setToggleChecked({
+      ...toggleChecked,
+      [`${filter}_${num}`]: !toggleChecked[`${filter}_${num}`],
+    });
 
-      if (toggleChecked[`${filter}_${num}`]) {
+    Object.keys(toggleChecked).forEach(key => {
+      if (toggleChecked[key] && key !== `${filter}_${num}`) {
         setToggleChecked({
           ...toggleChecked,
-          [`${filter}_${num}`]: false,
+          [key]: false,
+          [`${filter}_${num}`]: true,
         });
-        return dispatch(getGBReviews());
       }
-    }
+    });
 
-    if (filter && !num) {
-      Object.keys(toggleChecked).forEach(key => {
-        if (key !== 'user' && toggleChecked[key]) {
-          console.log('key doesnt eq', key);
-          // BUG need to set everything to false when user is selected
-          setToggleChecked({
-            ...toggleChecked,
-            [key]: false,
-          });
-        }
-      });
-
-      if (toggleChecked[filter]) {
-        setToggleChecked({ ...toggleChecked, [filter]: false });
-        return dispatch(getGBReviews());
-      }
-
-      setToggleChecked({ ...toggleChecked, [filter]: !toggleChecked[filter] });
-    }
-
+    setShowModal(false);
     return dispatch(filterReviews({ filter, num }));
   };
 
@@ -76,7 +52,8 @@ export default function FilterForm({ userId }) {
           <Modal.CloseButton />
           <Modal.Header>Filter Options</Modal.Header>
           <Modal.Body>
-            {userId && (
+            {/* TODO move user reviews this to profile */}
+            {/* {userId && (
               <HStack style={styles.toggleCont}>
                 <>
                   <Text>Show your Reviews</Text>
@@ -86,7 +63,7 @@ export default function FilterForm({ userId }) {
                   />
                 </>
               </HStack>
-            )}
+            )} */}
             {/* TODO update this so its not so repetitive */}
             <HStack style={styles.toggleCont}>
               <>
