@@ -9,6 +9,7 @@ export default function FilterForm({ userId }) {
   const [showModal, setShowModal] = useState(false);
   const [toggleChecked, setToggleChecked] = useState({});
   const styles = getStyles();
+  const filterOptions = getStarFilterOptions();
 
   const handleFilterSelection = async (filter, num) => {
     if (toggleChecked[`${filter}_${num}`]) {
@@ -52,64 +53,17 @@ export default function FilterForm({ userId }) {
           <Modal.CloseButton />
           <Modal.Header>Filter Options</Modal.Header>
           <Modal.Body>
-            {/* TODO move user reviews this to profile */}
-            {/* {userId && (
-              <HStack style={styles.toggleCont}>
+            {filterOptions.map(option => (
+              <HStack key={`num${option}`} style={styles.toggleCont}>
                 <>
-                  <Text>Show your Reviews</Text>
+                  <Text>{option} Star Reviews</Text>
                   <Switch
-                    onToggle={() => handleFilterSelection('user')}
-                    isChecked={toggleChecked.user}
+                    onToggle={() => handleFilterSelection('num', option)}
+                    isChecked={toggleChecked[`num_${option}`]}
                   />
                 </>
               </HStack>
-            )} */}
-            {/* TODO update this so its not so repetitive */}
-            <HStack style={styles.toggleCont}>
-              <>
-                <Text>5 Star Reviews</Text>
-                <Switch
-                  onToggle={() => handleFilterSelection('num', 5)}
-                  isChecked={toggleChecked.num_5}
-                />
-              </>
-            </HStack>
-            <HStack style={styles.toggleCont}>
-              <>
-                <Text>4 Star Reviews</Text>
-                <Switch
-                  onToggle={() => handleFilterSelection('num', 4)}
-                  isChecked={toggleChecked.num_4}
-                />
-              </>
-            </HStack>
-            <HStack style={styles.toggleCont}>
-              <>
-                <Text>3 Star Reviews</Text>
-                <Switch
-                  onToggle={() => handleFilterSelection('num', 3)}
-                  isChecked={toggleChecked.num_3}
-                />
-              </>
-            </HStack>
-            <HStack style={styles.toggleCont}>
-              <>
-                <Text>2 Star Reviews</Text>
-                <Switch
-                  onToggle={() => handleFilterSelection('num', 2)}
-                  isChecked={toggleChecked.num_2}
-                />
-              </>
-            </HStack>
-            <HStack style={styles.toggleCont}>
-              <>
-                <Text>1 Star Reviews</Text>
-                <Switch
-                  onToggle={() => handleFilterSelection('num', 1)}
-                  isChecked={toggleChecked.num_1}
-                />
-              </>
-            </HStack>
+            ))}
           </Modal.Body>
           <Modal.Footer>
             <Button.Group space={2}>
@@ -143,6 +97,10 @@ function getStyles() {
       marginTop: 5,
     },
   };
+}
+
+function getStarFilterOptions() {
+  return [5, 4, 3, 2, 1];
 }
 
 FilterForm.propTypes = {
