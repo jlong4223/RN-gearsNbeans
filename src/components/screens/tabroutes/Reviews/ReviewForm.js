@@ -13,12 +13,16 @@ import {
   HStack,
   Pressable,
   useTheme,
+  Select,
+  CheckIcon,
+  VStack,
 } from 'native-base';
 
 export default function ReviewForm({ isEditMode, inputValues }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [starSelected, setStarSelected] = useState(0);
   const [reviewInfo, setReviewInfo] = useState({});
+  const [itemSelected, setItemSelected] = useState('');
   const initialRef = useRef(null);
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -29,8 +33,36 @@ export default function ReviewForm({ isEditMode, inputValues }) {
   const btnText = isEditMode ? 'Edit' : 'Add Review';
   const checkForUserId = () => (!userId ? goToSignIn() : setModalVisible(true));
 
+  const allItems = useSelector(state =>
+    state.products.products
+      .concat(state.bikeServices.services)
+      .map(({ name, _id, type }) => ({
+        name,
+        _id,
+        type,
+      })),
+  );
+
   const handleChange = (name, value) =>
-    handleInputChange(name, value, setReviewInfo, reviewInfo, setStarSelected);
+    handleInputChange(
+      name,
+      value,
+      setReviewInfo,
+      reviewInfo,
+      setStarSelected,
+      setItemSelected,
+    );
+
+  const handleSelectionChange = itemId => {
+    setItemSelected(itemId);
+
+    const getItemMatchingValue = allItems.filter(
+      item => item._id === itemId && item,
+    );
+    const { name, type } = getItemMatchingValue[0];
+
+    setReviewInfo({ ...reviewInfo, product: name, reviewType: type });
+  };
 
   const reviewInput = getReviewInput({ initialRef });
 
@@ -40,6 +72,7 @@ export default function ReviewForm({ isEditMode, inputValues }) {
     if (!inputValues) {
       setStarSelected(0);
       setReviewInfo({});
+      setItemSelected('');
     }
   };
 
@@ -59,6 +92,8 @@ export default function ReviewForm({ isEditMode, inputValues }) {
     if (inputValues) {
       setReviewInfo(inputValues);
       setStarSelected(inputValues.stars);
+      // BUG this isnt showing - may need to set based on id associated to product?
+      setItemSelected(inputValues.product);
     }
   }, [inputValues]);
 
@@ -73,10 +108,18 @@ export default function ReviewForm({ isEditMode, inputValues }) {
           <Modal.Header>{modalHeader}</Modal.Header>
           <Modal.Body>
             {reviewInput.map(
-              ({ name, label, ref, pressableStars, maxHeight, multiline }) => (
+              ({
+                name,
+                label,
+                ref,
+                pressableStars,
+                maxHeight,
+                multiline,
+                selectable,
+              }) => (
                 <FormControl key={name} mt={3}>
                   <FormControl.Label>{label}</FormControl.Label>
-                  {!pressableStars && (
+                  {!pressableStars && !selectable && (
                     <Input
                       ref={ref}
                       onChangeText={value => handleChange(name, value)}
@@ -84,6 +127,29 @@ export default function ReviewForm({ isEditMode, inputValues }) {
                       maxHeight={maxHeight}
                       value={reviewInfo[name]}
                     />
+                  )}
+                  {/* TODO i also need to update the review object to allow for a reviewType: product or service */}
+                  {selectable && (
+                    <VStack alignItems="center" space={4}>
+                      <Select
+                        selectedValue={itemSelected}
+                        width="100%"
+                        accessibilityLabel="Choose Item"
+                        placeholder="Choose Item"
+                        _selectedItem={{
+                          bg: 'teal.600',
+                          endIcon: <CheckIcon size="5" />,
+                        }}
+                        mt={1}
+                        onValueChange={itemValue =>
+                          handleSelectionChange(itemValue)
+                        }>
+                        {/* eslint-disable-next-line no-shadow */}
+                        {allItems.map(({ name, _id }) => (
+                          <Select.Item key={name} label={name} value={_id} />
+                        ))}
+                      </Select>
+                    </VStack>
                   )}
                   {pressableStars && (
                     <HStack style={styles.starSelection}>
@@ -144,7 +210,7 @@ function getReviewInput({ initialRef }) {
     },
     {
       name: 'product',
-      label: 'Product',
+      selectable: true,
     },
     {
       name: 'stars',
