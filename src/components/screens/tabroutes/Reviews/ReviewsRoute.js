@@ -21,7 +21,6 @@ function ReviewsRoute({ reviews, getGBReviews, userId, deleteUsersReview }) {
   }, [getGBReviews]);
 
   return (
-    // TODO add a filter by review rating & by date
     <>
       <HStack style={styles.ratingContainer}>
         <Text>Rating: </Text>
