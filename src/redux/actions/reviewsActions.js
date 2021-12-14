@@ -108,15 +108,32 @@ export const updateReviewObj = review => {
 
 export const filterReviews = ({ filter, num = 0 }) => {
   switch (filter) {
-    // TODO these may require updating the item object on the backend to include something like itemType: 'product || itemType: 1 (1=product, 2=service) bc the items are not stored with any distinction
     case 'product':
-      return {
-        type: 'FILTER_BY_PRODUCT',
+      return async dispatch => {
+        const filteredReviews = await getReviews().then(reviews => {
+          return reviews.filter(review => {
+            return review.reviewType === 'product';
+          });
+        });
+        dispatch({
+          type: 'FILTER',
+          payload: filteredReviews,
+        });
       };
+
     case 'service':
-      return {
-        type: 'FILTER_BY_SERVICE',
+      return async dispatch => {
+        const filteredReviews = await getReviews().then(reviews => {
+          return reviews.filter(review => {
+            return review.reviewType === 'service';
+          });
+        });
+        dispatch({
+          type: 'FILTER',
+          payload: filteredReviews,
+        });
       };
+
     case 'num':
       return async dispatch => {
         const filteredStarReviews = await getReviews().then(reviews => {
@@ -124,14 +141,14 @@ export const filterReviews = ({ filter, num = 0 }) => {
         });
 
         dispatch({
-          type: 'FILTER_BY_STAR',
+          type: 'FILTER',
           payload: filteredStarReviews,
         });
       };
 
     default:
       return {
-        type: 'FILTER_BY_ALL',
+        type: GET_REVIEWS,
       };
   }
 };

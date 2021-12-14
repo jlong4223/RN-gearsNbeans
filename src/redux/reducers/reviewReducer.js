@@ -36,7 +36,7 @@ export function reviewReducer(state = initialState, action) {
           review._id === action.payload._id ? action.payload : review,
         ),
       };
-    case 'FILTER_BY_STAR':
+    case 'FILTER':
       return {
         ...state,
         reviews: action.payload,

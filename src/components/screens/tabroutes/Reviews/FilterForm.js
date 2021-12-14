@@ -9,9 +9,10 @@ export default function FilterForm({ userId }) {
   const [showModal, setShowModal] = useState(false);
   const [toggleChecked, setToggleChecked] = useState({});
   const styles = getStyles();
-  const filterOptions = getStarFilterOptions();
+  const starFilterOptions = getStarFilterOptions();
+  const productsServicesFilter = getProductServicesFilter();
 
-  const handleFilterSelection = async (filter, num) => {
+  const handleFilterSelection = async (filter, num = 0) => {
     if (toggleChecked[`${filter}_${num}`]) {
       setToggleChecked({
         ...toggleChecked,
@@ -53,13 +54,24 @@ export default function FilterForm({ userId }) {
           <Modal.CloseButton />
           <Modal.Header>Filter Options</Modal.Header>
           <Modal.Body>
-            {filterOptions.map(option => (
+            {starFilterOptions.map(option => (
               <HStack key={`num${option}`} style={styles.toggleCont}>
                 <>
                   <Text>{option} Star Reviews</Text>
                   <Switch
                     onToggle={() => handleFilterSelection('num', option)}
                     isChecked={toggleChecked[`num_${option}`]}
+                  />
+                </>
+              </HStack>
+            ))}
+            {productsServicesFilter.map(option => (
+              <HStack key={`${option.filter}`} style={styles.toggleCont}>
+                <>
+                  <Text>{option.name}</Text>
+                  <Switch
+                    onToggle={() => handleFilterSelection(option.filter)}
+                    isChecked={toggleChecked[`${option.filter}_0`]}
                   />
                 </>
               </HStack>
@@ -101,6 +113,19 @@ function getStyles() {
 
 function getStarFilterOptions() {
   return [5, 4, 3, 2, 1];
+}
+
+function getProductServicesFilter() {
+  return [
+    {
+      name: 'Products',
+      filter: 'product',
+    },
+    {
+      name: 'Services',
+      filter: 'service',
+    },
+  ];
 }
 
 FilterForm.propTypes = {
