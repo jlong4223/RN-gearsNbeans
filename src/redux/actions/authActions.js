@@ -10,9 +10,7 @@ import {
 
 export const loginUser = userDetails => {
   return async dispatch => {
-    const response = await login(userDetails).catch(err => {
-      dispatchError(dispatch, err);
-    });
+    const response = await login(userDetails);
 
     if (response.status === 200) {
       const { token } = response.data;
@@ -27,6 +25,12 @@ export const loginUser = userDetails => {
         payload: userDataFromToken,
       });
     }
+
+    dispatchError(dispatch, {
+      message: response,
+      action: 'loginUser',
+      unauthorized: true,
+    });
   };
 };
 

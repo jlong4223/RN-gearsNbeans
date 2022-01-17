@@ -5,6 +5,7 @@ import { reviewReducer } from '~reducers/reviewReducer';
 import { productsReducer } from '~reducers/productsReducer';
 import { bikeServicesReducer } from '~reducers/bikeServicesReducer';
 import { authReducer } from '~reducers/authReducers';
+import { errorReducer } from '~reducers/errorReducer';
 
 export default combineReducers({
   form: formReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   products: productsReducer,
   bikeServices: bikeServicesReducer,
   userData: authReducer,
+  error: errorReducer,
 });

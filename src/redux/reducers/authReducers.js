@@ -19,11 +19,6 @@ export function authReducer(state = initialState, action) {
         isAuthenticated: false,
         user: {},
       };
-    case GET_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-      };
     default:
       return state;
   }
