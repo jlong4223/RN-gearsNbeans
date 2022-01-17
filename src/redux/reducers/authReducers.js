@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, GET_ERROR } from '~redux/constants';
+import { LOGIN_USER, LOGOUT_USER } from '~redux/constants';
 
 const initialState = {
   isAuthenticated: false,
@@ -18,11 +18,6 @@ export function authReducer(state = initialState, action) {
         ...state,
         isAuthenticated: false,
         user: {},
-      };
-    case GET_ERROR:
-      return {
-        ...state,
-        error: action.payload,
       };
     default:
       return state;

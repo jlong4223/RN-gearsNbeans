@@ -2,8 +2,16 @@ import { Navigation } from 'react-native-navigation';
 import { SCREEN_NAMES, NAVIGATION_STACKS } from '~app/appConstants';
 import truncate from 'lodash/truncate';
 import merge from 'lodash/merge';
+import { clearError } from '~redux/actions/errorAction';
 
-// TODO: look into back arrow colors
+Navigation.events().registerNavigationButtonPressedListener(
+  ({ componentId, buttonId }) => {
+    // TODO see if i can call a redux action here
+    clearError();
+    Navigation.pop(componentId);
+  },
+);
+
 export function setBaseRoot() {
   Navigation.setRoot({
     root: {
@@ -17,6 +25,9 @@ export function setBaseRoot() {
                 topBar: {
                   title: {
                     text: 'Home',
+                  },
+                  backButton: {
+                    color: '#000',
                   },
                 },
               },
@@ -112,6 +123,9 @@ export function goToProfile({ options } = {}) {
       title: {
         text: 'Profile',
       },
+      backButton: {
+        color: '#000',
+      },
     },
   });
 
@@ -137,10 +151,16 @@ export function goToInfo({ options } = {}) {
 }
 
 export function goToSignIn({ options } = {}) {
+  console.log('goToSignIn options', options);
+
   const combinedOptions = merge(options, {
     topBar: {
       title: {
         text: 'Sign In',
+      },
+      backButton: {
+        color: '#000',
+        popStackOnPress: false,
       },
     },
   });
