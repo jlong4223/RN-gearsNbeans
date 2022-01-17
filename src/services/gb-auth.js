@@ -1,7 +1,10 @@
 import gbApi from '~services/gb-api';
 
 export const login = async userDetails => {
-  return await gbApi.post('/login', { ...userDetails });
+  return await gbApi
+    .post('/login', { ...userDetails })
+    .then(res => res)
+    .catch(err => err);
 };
 
 export const register = userInput => {
