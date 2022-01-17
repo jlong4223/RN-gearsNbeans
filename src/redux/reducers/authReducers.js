@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, GET_ERROR } from '~redux/constants';
+import { LOGIN_USER, LOGOUT_USER } from '~redux/constants';
 
 const initialState = {
   isAuthenticated: false,
