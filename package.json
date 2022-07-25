@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "pods": "cd ios && pod install",
+    "pods-m1": "cd ios && arch -x86_64 pod install",
     "start": "react-native start",
     "run-local": "ENVFILE=.env.local react-native run-ios",
     "test": "jest",
