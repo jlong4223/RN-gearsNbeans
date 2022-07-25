@@ -15,6 +15,7 @@ iOS Sim:
 
 - npm i
 - npm run pods
+- npm run pods-m1 (m1)
 - npm run ios
 
 Android Sim:
