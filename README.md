@@ -38,3 +38,7 @@ Android Sim:
 - checking out saves the order to the user's previous orders (update API)
 - Setup splash screen
 - convert all connect to useDispatch & useSelector hooks
+
+## Important Notes:
+
+If running into linking errors, may need to comment out flipper in `ios/Podfile`

@@ -1,6 +1,14 @@
 module.exports = {
   root: true,
   extends: ['@react-native-community' /* 'airbnb' */],
+  ignorePatterns: [
+    'node_modules/',
+    'dist/',
+    'package.json',
+    'package-lock.json',
+    'README.md',
+    'public/',
+  ],
   rules: {
     'react/prop-types': 1,
     'no-console': 'off',
