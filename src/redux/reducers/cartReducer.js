@@ -4,6 +4,7 @@ import {
   CLEAR_ENTIRE_CART,
   ADD_ITEM_QUANTITY,
   SUBTRACT_ITEM_QUANTITY,
+  CHECKOUT_CART,
 } from '~redux/constants';
 
 const initialState = {
@@ -73,6 +74,13 @@ export function cartReducer(state = initialState, action) {
         itemCount: state.itemCount - action.payload.quantity,
       };
     case CLEAR_ENTIRE_CART:
+      return {
+        ...state,
+        cart: [],
+        total: 0,
+        itemCount: 0,
+      };
+    case CHECKOUT_CART:
       return {
         ...state,
         cart: [],
